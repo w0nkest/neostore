@@ -16,8 +16,14 @@ class Transaction(models.Model):
 class Thing(models.Model):
     value = models.IntegerField(verbose_name='Value', default=0)
     amount = models.IntegerField(verbose_name='Amount', default=0)
-    photo = models.CharField(verbose_name='Photolink', max_length=100)
+    photo = models.ImageField(verbose_name='Photolink', upload_to='things/', null=True, blank=True)
     name = models.CharField(verbose_name='Name', max_length=100)
+
+    @property
+    def photo_url(self):
+        if self.photo:
+            return self.photo.url
+        return '/static/images/no-image.jpg'
 
 class Certificate(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

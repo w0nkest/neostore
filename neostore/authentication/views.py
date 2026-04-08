@@ -5,6 +5,7 @@ from .forms import CustomUserCreationForm
 from home.models import Wallet
 
 def register(request):
+    error = ''
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -17,12 +18,13 @@ def register(request):
 
             return redirect('user-profile')
         else:
-            messages.error(request, 'Данные заполнены неверно!')
+            error = 'Данные заполнены неверно!'
 
 
     data = {
-        'form': CustomUserCreationForm()
+        'form': CustomUserCreationForm(),
+        'error': error
     }
 
 
-    return render(request, 'registration/register.html', {'form': data['form'] })
+    return render(request, 'registration/register.html', data)
