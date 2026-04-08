@@ -1,4 +1,10 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+
+def redirect_to_home(request):
+    return redirect('home')
 
 def home(request):
-    return HttpResponse("Hello, world. You're at the polls page.")
+    return render(request, 'home/home.html')
+
+def register(request):
+    return render(request, 'home/register.html')
