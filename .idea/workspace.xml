@@ -4,12 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="added migrations file">
-      <change afterPath="$PROJECT_DIR$/neostore/home/templates/home/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neostore/home/templates/home/register.html" afterDir="false" />
+    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="created pages, made order class">
+      <change afterPath="$PROJECT_DIR$/neostore/authentication/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/authentication/templates/registration/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/authentication/templates/registration/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/authentication/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/authentication/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/user_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/neostore/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/neostore/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/neostore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/neostore/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,10 +70,15 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev"
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "/Users/w0nkest/PycharmProjects/neostore/neostore/authentication"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/neostore/authentication" />
+      <recent name="$PROJECT_DIR$/neostore/auth" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/neostore/home/templates/home" />
       <recent name="$PROJECT_DIR$/neostore" />
@@ -124,7 +139,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775653177630</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="created pages, made order class">
+      <option name="closed" value="true" />
+      <created>1775655029075</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1775655029075</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -132,6 +155,7 @@
     <MESSAGE value="started home page" />
     <MESSAGE value="added classes and made migration" />
     <MESSAGE value="added migrations file" />
-    <option name="LAST_COMMIT_MESSAGE" value="added migrations file" />
+    <MESSAGE value="created pages, made order class" />
+    <option name="LAST_COMMIT_MESSAGE" value="created pages, made order class" />
   </component>
 </project>

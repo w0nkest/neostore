@@ -10,6 +10,12 @@
     </style>
 </head>
 <body>
-    <a href="register"><button type="submit">Click Me!</button></a>
+    <a href="{% url 'register' %}"><button type="submit">Click Me!</button></a><br>
+
+    {% for el in users %}
+        {{el.username}}<br>
+        {{el.id}}<br><br>
+    {% endfor %}
+
 </body>
 </html>

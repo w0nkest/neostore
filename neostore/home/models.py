@@ -5,8 +5,8 @@ class Wallet(models.Model):
     money = models.IntegerField(verbose_name='Money', default=0)
 
 class User(AbstractUser):
-    wallet = models.OneToOneField(Wallet, on_delete=models.CASCADE)
-    date_birth = models.DateField(verbose_name='Date of birth')
+    wallet = models.OneToOneField(Wallet, on_delete=models.CASCADE, verbose_name='Wallet', null=True, blank=True)
+    date_birth = models.DateField(verbose_name='Date of birth', null=True)
 
 class Transaction(models.Model):
     wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
