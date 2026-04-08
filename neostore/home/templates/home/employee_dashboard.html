@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Employee Dashboard</h1>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Your Balance</h5>
+                    <p class="card-text fs-2">{{ balance }} <small>NeoCoins</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mt-5">My Certificates</h3>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Given For</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cert in certificates %}
+                <tr>
+                    <td>{{ cert.name }}</td>
+                    <td>{{ cert.givenfor }}</td>
+                    <td>
+                        {% if cert.state %}
+                            <span class="badge bg-success">Approved</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3">No certificates submitted yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

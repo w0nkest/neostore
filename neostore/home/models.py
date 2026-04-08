@@ -7,6 +7,7 @@ class Wallet(models.Model):
 class User(AbstractUser):
     wallet = models.OneToOneField(Wallet, on_delete=models.CASCADE, verbose_name='Wallet', null=True, blank=True)
     date_birth = models.DateField(verbose_name='Date of birth', null=True)
+    is_hr = models.BooleanField(default=False, verbose_name='Is HR Manager')
 
 class Transaction(models.Model):
     wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)

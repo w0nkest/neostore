@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Store</h1>
+    <div class="row mt-4">
+        {% for thing in things %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="{{ thing.photo_url }}" class="card-img-top" alt="{{ thing.name }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ thing.name }}</h5>
+                        <p class="card-text text-primary fw-bold">{{ thing.value }} NeoCoins</p>
+                        <p class="text-muted small">Stock: {{ thing.amount }}</p>
+                        <a href="#" class="btn btn-success w-100">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12"><p class="text-center">No items available in stock.</p></div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -5,26 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="created pages, made order class">
-      <change afterPath="$PROJECT_DIR$/neostore/authentication/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neostore/authentication/templates/registration/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neostore/authentication/templates/registration/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neostore/authentication/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neostore/authentication/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/home/migrations/0009_user_is_hr.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/home/templates/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/home/templates/home/employee_dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/home/templates/home/hr_inventory.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/home/templates/home/store.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/home/templates/registration/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neostore/home/templates/registration/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/authentication/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/authentication/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/home/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/user_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/user_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/user_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/neostore/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/neostore/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/neostore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/neostore/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="53" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -42,21 +46,25 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "w0nkest"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;w0nkest&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/w0nkest/neostore.git",
-    "accountId": "44fd7edf-7464-4a0a-ac2f-a27ad60326c2"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/w0nkest/neostore.git&quot;,
+    &quot;accountId&quot;: &quot;44fd7edf-7464-4a0a-ac2f-a27ad60326c2&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="3C4VcX8EmDEj1AHdMqLqI5AK62I" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -67,11 +75,26 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.main.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev",
-    "last_opened_file_path": "/Users/w0nkest/PycharmProjects/neostore/neostore/authentication"
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "dev__evgen",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/w0nkest/PycharmProjects/neostore/neostore/authentication",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "ml.llm.AcpAgentsConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true",
+    "Отладка JavaScript.base.html.executor": "Run",
+    "Отладка JavaScript.home.html.executor": "Run"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -84,10 +107,20 @@
       <recent name="$PROJECT_DIR$/neostore" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="base.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/neostore/neostore/home/templates/base.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Отладка JavaScript.base.html" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178" />
+        <option value="bundled-python-sdk-b63d5a1f7c97-b61e75351b1f-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.22158.340" />
       </set>
     </attachedChunks>
   </component>
@@ -98,6 +131,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1775644908256</updated>
+      <workItem from="1775672103682" duration="93000" />
+      <workItem from="1775673819815" duration="118000" />
+      <workItem from="1775676532826" duration="502000" />
+      <workItem from="1775677336424" duration="816000" />
+      <workItem from="1775678178339" duration="2398000" />
     </task>
     <task id="LOCAL-00001" summary="created repo">
       <option name="closed" value="true" />
@@ -150,6 +188,9 @@
     <option name="localTasksCounter" value="7" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created repo" />
     <MESSAGE value="started home page" />
@@ -157,5 +198,8 @@
     <MESSAGE value="added migrations file" />
     <MESSAGE value="created pages, made order class" />
     <option name="LAST_COMMIT_MESSAGE" value="created pages, made order class" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/neostore$asgi.coverage" NAME="Результаты покрытия asgi" MODIFIED="1775652751189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neostore/neostore" />
   </component>
 </project>

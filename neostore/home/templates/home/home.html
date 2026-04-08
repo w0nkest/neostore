@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <style>
-        body {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <a href="{% url 'register' %}"><button type="submit">Click Me!</button></a><br>
-
-    {% for el in users %}
-        {{el.username}}<br>
-        {{el.id}}<br><br>
-    {% endfor %}
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    <div class="text-center mt-5">
+        <h1>Welcome to Neo Store</h1>
+        <p class="lead">Earn corporate currency by achieving goals and spend it on awesome gifts!</p>
+        <div class="mt-4">
+            {% if user.is_authenticated %}
+                <a href="{% url 'employee-dashboard' %}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">Login to Start</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
