@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-4">
                 <h5>Role</h5>
-                <p class="fs-5">{{ "HR Manager" if user.is_hr else "Employee" }}</p>
+                <p class="fs-5">{% if user.is_hr %}HR Manager{% else %}Employee{% endif %}</p>
             </div>
         </div>
     </div>
