@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Store</h1>
+    <h1>Магазин</h1>
     <div class="d-flex justify-content-between align-items-center mb-4" style="gap: 20px">
-        <div>{% if user.is_superuser %} <a href="{% url 'add-things' %}" class="btn btn-outline-dark position-relative">Manage items</a> {% endif %}</div>
+        <div>{% if user.is_superuser %} <a href="{% url 'add-things' %}" class="btn btn-outline-dark position-relative">Управление товарами</a> {% endif %}</div>
         <div><a href="{% url 'cart' %}" class="btn btn-outline-dark position-relative">
-            Cart
+            Корзина
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count" style="display: none;">
                 0
             </span>
@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ thing.name }}</h5>
                     <p class="card-text text-primary fw-bold">{{ thing.value }} NeoCoins</p>
-                    <p class="text-muted small">Stock: <span class="stock-count" data-id="{{ thing.id }}">{{ thing.amount }}</span></p>
+                    <p class="text-muted small">На складе: <span class="stock-count" data-id="{{ thing.id }}">{{ thing.amount }}</span></p>
 
                     <div class="quantity-control" data-id="{{ thing.id }}" style="display: none;">
                         <div class="btn-group w-100" role="group">
@@ -32,12 +32,12 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-success w-100 buy-now-btn" data-id="{{ thing.id }}">Buy Now</button>
+                    <button class="btn btn-success w-100 buy-now-btn" data-id="{{ thing.id }}">Купить</button>
                 </div>
             </div>
         </div>
     {% empty %}
-        <div class="col-12"><p class="text-center">No items available in stock.</p></div>
+        <div class="col-12"><p class="text-center">Нет товаров в наличии.</p></div>
     {% endfor %}
 </div>
 
@@ -169,7 +169,7 @@ async function initProduct(thingId) {
         buyBtn.style.display = 'block';
 
         if (stock <= 0) {
-            buyBtn.textContent = 'Out of stock';
+            buyBtn.textContent = 'Нет в наличии';
             buyBtn.disabled = true;
             buyBtn.classList.remove('btn-success');
             buyBtn.classList.add('btn-secondary');
@@ -185,7 +185,7 @@ document.querySelectorAll('.buy-now-btn').forEach(btn => {
         let stock = parseInt(stockSpan.textContent);
 
         if (stock <= 0) {
-            btn.textContent = 'Out of stock';
+            btn.textContent = 'Нет в наличии';
             btn.disabled = true;
             btn.classList.remove('btn-success');
             btn.classList.add('btn-secondary');
@@ -266,10 +266,10 @@ document.querySelectorAll('.dec-btn').forEach(btn => {
                 buyBtn.style.display = 'block';
 
                 if (stock <= 0) {
-                    buyBtn.textContent = 'Out of stock';
+                    buyBtn.textContent = 'Нет в наличии';
                     buyBtn.disabled = true;
                 } else {
-                    buyBtn.textContent = 'Buy Now';
+                    buyBtn.textContent = 'Купить';
                     buyBtn.disabled = false;
                 }
 

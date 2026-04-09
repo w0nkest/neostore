@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Employee Dashboard</h1>
+    <h1>Панель сотрудника</h1>
 
     <div class="row mt-4">
         <div class="col-md-4">
             <div class="card text-white bg-primary mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Your Balance</h5>
+                    <h5 class="card-title">Ваш баланс</h5>
                     <p class="card-text fs-2">{{ balance }} <small>NeoCoins</small></p>
                 </div>
             </div>
@@ -16,13 +16,13 @@
 
     <div class="row mt-4">
         <div class="col-md-6">
-            <h3>My Certificates</h3>
+            <h3>Мои сертификаты</h3>
             <table class="table table-striped mt-3">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Given For</th>
-                        <th>Status</th>
+                        <th>Название</th>
+                        <th>За что</th>
+                        <th>Статус</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,26 +32,26 @@
                             <td>{{ cert.givenfor }}</td>
                             <td>
                                 {% if cert.state %}
-                                    <span class="badge bg-success">Approved</span>
+                                    <span class="badge bg-success">Одобрено</span>
                                 {% else %}
-                                    <span class="badge bg-warning text-dark">Pending</span>
+                                    <span class="badge bg-warning text-dark">Ожидает</span>
                                 {% endif %}
                             </td>
                         </tr>
                     {% empty %}
-                        <tr><td colspan="3" class="text-center">No certificates submitted yet.{% endfor %}
+                        <tr><td colspan="3" class="text-center">Сертификаты ещё не отправлены.{% endfor %}
                 </tbody>
             </table>
         </div>
 
         <div class="col-md-6">
-            <h3>My Orders</h3>
+            <h3>Мои заказы</h3>
             <table class="table table-striped mt-3">
                 <thead>
                     <tr>
-                        <th>Order ID</th>
-                        <th>Date</th>
-                        <th>Status</th>
+                        <th>ID заказа</th>
+                        <th>Дата</th>
+                        <th>Статус</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,14 +61,14 @@
                             <td>{{ order.date|date:"d.m.Y H:i" }}</td>
                             <td>
                                 {% if order.state %}
-                                    <span class="badge bg-success">Delivered</span>
+                                    <span class="badge bg-success">Доставлен</span>
                                 {% else %}
-                                    <span class="badge bg-warning text-dark">Processing</span>
+                                    <span class="badge bg-warning text-dark">В обработке</span>
                                 {% endif %}
                             </td>
                         </tr>
                     {% empty %}
-                        <tr><td colspan="3" class="text-center">No orders yet.{% endfor %}
+                        <tr><td colspan="3" class="text-center">Заказов пока нет.{% endfor %}
                 </tbody>
             </table>
         </div>

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Orders list</h1>
+        <h1>Список заказов</h1>
     </div>
 
     {% if orders %}
@@ -12,14 +12,14 @@
             <div class="card" style="width: 50vw;">
                 <div class="card-header bg-dark text-white">
                     <div class="d-flex justify-content-between align-items-center">
-                        <span><strong>Order #{{ order.id }}</strong></span>
-                        <span>Date: {{ order.date|date:"d.m.Y H:i" }}</span>
+                        <span><strong>Заказ #{{ order.id }}</strong></span>
+                        <span>Дата: {{ order.date|date:"d.m.Y H:i" }}</span>
                         <span>
-                            Status:
+                            Статус:
                             {% if order.state %}
-                                <span class="badge bg-success">Delivered</span>
+                                <span class="badge bg-success">Доставлен</span>
                             {% else %}
-                                <span class="badge bg-warning text-dark">Processing</span>
+                                <span class="badge bg-warning text-dark">В обработке</span>
                             {% endif %}
                         </span>
                     </div>
@@ -28,10 +28,10 @@
                     <table class="table table-bordered mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Subtotal</th>
+                                <th>Товар</th>
+                                <th>Цена</th>
+                                <th>Кол-во</th>
+                                <th>Итого</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +53,7 @@
                         </tbody>
                         <tfoot>
                             <tr class="table-active">
-                                <td colspan="3" class="text-end fw-bold">Total:</td>
+                                <td colspan="3" class="text-end fw-bold">Итого:</td>
                                 <td class="fw-bold text-success">{{ order.total }} NeoCoins</td>
                             </tr>
                         </tfoot>
@@ -64,8 +64,8 @@
         </div>
     {% else %}
         <div class="text-center py-5">
-            <h3>No orders yet</h3>
-            <a href="{% url 'store' %}" class="btn btn-primary mt-3">Go to Store</a>
+            <h3>Заказов пока нет</h3>
+            <a href="{% url 'store' %}" class="btn btn-primary mt-3">Перейти в магазин</a>
         </div>
     {% endif %}
 </div>

@@ -8,8 +8,8 @@ class ThingsForm(ModelForm):
         fields = ['name', 'value', 'amount', 'photo']
 
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}),
-            'photo': FileInput(attrs={'class': 'form-control', 'placeholder': 'Photo', 'accept': 'image/*'}),
-            'value': TextInput(attrs={'class': 'form-control', 'placeholder': 'price'}),
-            'amount': TextInput(attrs={'class': 'form-control', 'placeholder': 'amount of things'}),
+            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Название'}),
+            'photo': FileInput(attrs={'class': 'form-control', 'placeholder': 'Фото', 'accept': 'image/*'}),
+            'value': TextInput(attrs={'class': 'form-control', 'placeholder': 'Цена'}),
+            'amount': TextInput(attrs={'class': 'form-control', 'placeholder': 'Количество'}),
         }

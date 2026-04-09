@@ -8,6 +8,6 @@ class CertificateForm(ModelForm):
         fields = ['name', 'givenfor']
 
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}),
-            'givenfor': TextInput(attrs={'class': 'form-control', 'placeholder': 'Given for '}),
+            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Название'}),
+            'givenfor': TextInput(attrs={'class': 'form-control', 'placeholder': 'За что'}),
         }

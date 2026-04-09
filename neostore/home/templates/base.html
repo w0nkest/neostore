@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -9,24 +10,27 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">NEO STORE</a>
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" style="height: 35px; margin-right: 10px;">
+                NEO STORE
+            </a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'employee-dashboard' %}">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'store' %}">Store</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'employee-dashboard' %}">Панель</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'store' %}">Магазин</a></li>
                         {% if user.is_superuser %}
-                            <li class="nav-item"><a class="nav-link text-warning" href="{% url 'hr-dashboard' %}">HR Panel</a></li>
-                            <li class="nav-item"><a class="nav-link text-warning" href="{% url 'challenge' %}">Challenges</a></li>
+                            <li class="nav-item"><a class="nav-link text-warning" href="{% url 'hr-dashboard' %}">HR Панель</a></li>
+                            <li class="nav-item"><a class="nav-link text-warning" href="{% url 'challenge' %}">Задачи</a></li>
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'user-profile' %}">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'user-profile' %}">Профиль</a></li>
                         <li class="nav-item"><form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
-                            <button type="submit" class="nav-link">Logout</button>
+                            <button type="submit" class="nav-link">Выйти</button>
                         </form></li>
                     {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Войти</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
                     {% endif %}
                 </ul>
             </div>
