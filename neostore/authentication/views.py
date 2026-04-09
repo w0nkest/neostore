@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib import messages
 from .forms import CustomUserCreationForm
-from home.models import Wallet
+from home.models import Wallet, Cart
 
 def register(request):
     error = ''
@@ -28,3 +28,19 @@ def register(request):
 
 
     return render(request, 'registration/register.html', data)
+
+
+def custom_logout(request):
+    if request.user.is_authenticated:
+        # получаем корзину пользователя
+        cart = Cart.objects.filter(user=request.user).first()
+        if cart:
+            # возвращаем товары на склад
+            for item in cart.items.all():
+                item.thing.amount += item.quantity
+                item.thing.save()
+            # удаляем корзину
+            cart.delete()
+
+    logout(request)
+    return redirect('home')

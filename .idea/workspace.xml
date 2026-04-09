@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="cart filling logic created">
-      <change afterPath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/authentication/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/authentication/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/authentication/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/authentication/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/store.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/store.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/things/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/things/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/views.py" afterDir="false" />
@@ -72,7 +74,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "dev__evgen",
+    "git-widget-placeholder": "dev",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "/Users/w0nkest/PycharmProjects/neostore/neostore/authentication/templates/registration",
     "node.js.detected.package.eslint": "true",

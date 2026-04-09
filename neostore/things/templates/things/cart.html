@@ -4,7 +4,7 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Shopping Cart</h1>
-        <a href="{% url 'store' %}" class="btn btn-secondary">Continue Shopping</a>
+        {% if items %} <a href="{% url 'store' %}" class="btn btn-secondary">Continue Shopping</a>{% endif %}
     </div>
 
     {% if items %}
@@ -20,7 +20,6 @@
                             <h5 class="card-title">{{ item.thing.name }}</h5>
                             <p class="card-text text-primary fw-bold">{{ item.thing.value }} NeoCoins each</p>
 
-                            <!-- Контрол количества -->
                             <div class="quantity-control mt-3" data-id="{{ item.thing.id }}">
                                 <div class="btn-group" role="group">
                                     <button class="btn btn-danger dec-btn" type="button">−</button>
@@ -37,10 +36,15 @@
                 </div>
             </div>
             {% endfor %}
-        </div>
 
-        <div class="text-center mt-4">
-            <h3>Total: <span id="total-price">{{ totalprice }}</span> NeoCoins</h3>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 20px;">
+                <div><h3>Total: <span id="total-price">{{ totalprice }}</span> NeoCoins</h3></div>
+
+                <div>
+                    <a href="#" class="btn btn-success" id="PayBtn" style="width: 200px">Pay</a>
+                </div>
+                <div id="warning-message" class="alert alert-danger mt-2" style="text-align: center; display: none;"></div>
+            </div>
         </div>
     {% else %}
         <div class="text-center py-5">
@@ -49,7 +53,11 @@
         </div>
     {% endif %}
 </div>
+
 <script>
+// передаем баланс из контекста Django в JavaScript
+const USER_BALANCE = {{ money|default:0 }};
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -73,6 +81,31 @@ function updateCartCount(count) {
     }
 }
 
+function checkBalance(totalPrice) {
+    const payLink = document.getElementById('PayBtn');
+    const warningDiv = document.getElementById('warning-message');
+    const userBalance = USER_BALANCE;
+
+    if (!payLink || !warningDiv) return;
+
+    if (userBalance >= totalPrice) {
+        payLink.classList.remove('btn-secondary', 'disabled');
+        payLink.classList.add('btn-success');
+        payLink.textContent = 'Pay';
+        payLink.style.pointerEvents = 'auto';
+        warningDiv.style.display = 'none';
+    } else {
+        payLink.classList.remove('btn-success');
+        payLink.classList.add('btn-secondary', 'disabled');
+        payLink.textContent = 'Insufficient funds';
+        payLink.style.pointerEvents = 'none';
+        warningDiv.style.display = 'block';
+        const needed = totalPrice - userBalance;
+        warningDiv.innerHTML = `Insufficient balance! Need <strong>${needed}</strong> more NeoCoins.<br>
+                                Your balance: <strong>${userBalance}</strong> NeoCoins | Total: <strong>${totalPrice}</strong> NeoCoins`;
+    }
+}
+
 async function updateCartQuantity(thingId, quantity) {
     const response = await fetch(`/shop/update-cart-quantity/${thingId}/`, {
         method: 'POST',
@@ -84,6 +117,33 @@ async function updateCartQuantity(thingId, quantity) {
     });
     return await response.json();
 }
+
+// обработчик оплаты
+document.getElementById('PayBtn')?.addEventListener('click', async function(e) {
+    e.preventDefault();
+
+    // проверяем достаточно ли средств
+    const totalPrice = parseInt(document.getElementById('total-price').textContent);
+    if (USER_BALANCE < totalPrice) {
+        return; // не хватает денег - ничего не делаем
+    }
+
+    // отправляем запрос на оплату
+    const response = await fetch('/shop/checkout/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json',
+        }
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        window.location.href = '/user/profile/';
+    } else {
+        alert(result.error || 'Payment failed');
+    }
+});
 
 document.querySelectorAll('.quantity-control').forEach(control => {
     const thingId = parseInt(control.dataset.id);
@@ -100,7 +160,9 @@ document.querySelectorAll('.quantity-control').forEach(control => {
         document.getElementById('total-price').textContent = newTotalPrice;
         updateCartCount(cartCount);
 
-        // блокируем плюс если остаток 0
+        // проверяем баланс при каждом обновлении
+        checkBalance(newTotalPrice);
+
         if (stockLeft <= 0) {
             incBtn.disabled = true;
             incBtn.classList.remove('btn-success');
@@ -158,7 +220,11 @@ document.querySelectorAll('.quantity-control').forEach(control => {
     });
 });
 
-// загружаем счетчик при загрузке
+// начальная проверка баланса при загрузке
+const initialTotal = parseInt(document.getElementById('total-price').textContent);
+checkBalance(initialTotal);
+
+// загружаем счетчик корзины
 fetch('/shop/cart-count/')
     .then(response => response.json())
     .then(data => {

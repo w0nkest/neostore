@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ThingsForm
-from home.models import Thing, Cart, CartItem
+from home.models import Thing, Cart, CartItem, Order, OrderItem
 
 
 def display(request):
@@ -131,9 +131,44 @@ def update_cart_quantity(request, thing_id):
 
 
 @login_required
-def cart(request):
+def cart_display(request):
     cart, _ = Cart.objects.get_or_create(user=request.user)
     items = CartItem.objects.filter(cart=cart)
     totalprice = sum(it.subtotal for it in items)
 
-    return render(request, 'things/cart.html', {'items': items, 'totalprice': totalprice})
+    money = request.user.wallet.money
+
+    return render(request, 'things/cart.html',
+                  {'items': items, 'totalprice': totalprice, 'money': money})
+
+
+@login_required
+def checkout(request):
+    if request.method == 'POST':
+        cart = Cart.objects.get(user=request.user)
+        items = CartItem.objects.filter(cart=cart)
+
+        total = sum(item.thing.value * item.quantity for item in items)
+
+        if request.user.wallet.money >= total:
+
+            request.user.wallet.money -= total
+            request.user.wallet.save()
+
+            order = Order.objects.create(user=request.user)
+
+            for cart_item in items:
+                OrderItem.objects.create(
+                    order=order,
+                    thing=cart_item.thing,
+                    quantity=cart_item.quantity,
+                    price=cart_item.thing.value
+                )
+
+            items.delete()
+
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'Insufficient funds'})
+
+    return JsonResponse({'success': False, 'error': 'Invalid method'})

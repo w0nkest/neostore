@@ -7,7 +7,8 @@ from django.conf import settings
 urlpatterns = [
     path('', views.display, name='store'),
     path('add/', views.add, name='add-things'),
-    path('cart/', views.cart, name='cart'),
+    path('cart/', views.cart_display, name='cart'),
+    path('checkout/', views.checkout, name='checkout'),
     path('add-to-cart-ajax/<int:thing_id>/', views.add_to_cart_ajax, name='add_to_cart_ajax'),
     path('cart-count/', views.cart_count, name='cart_count'),
     path('get-cart-item/<int:thing_id>/', views.get_cart_item, name='get_cart_item'),
