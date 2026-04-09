@@ -26,14 +26,48 @@
                                         data-user="{{ cert.user.username }}"
                                         data-givenfor="{{ cert.givenfor }}"
                                         data-date="{{ cert.date|date:'Y-m-d H:i:s' }}"
+                                        data-state="Ожидает"
                                         data-photo="{% if cert.photo %}{{ cert.photo.url }}{% endif %}">
-                                    View
+                                    Просмотр
                                 </button>
                                 <button class="btn btn-sm btn-success approve-cert" data-id="{{ cert.id }}">Одобрить</button>
                             </td>
                         </tr>
                     {% empty %}
                         <tr id="no-certs"><td colspan="3">Нет ожидающих сертификатов.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h3 class="mt-5">Одобренные сертификаты</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Пользователь</th>
+                        <th>Сертификат</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cert in approved_certs %}
+                        <tr>
+                            <td>{{ cert.user.username }}</td>
+                            <td>{{ cert.name }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-info view-cert"
+                                        data-id="{{ cert.id }}"
+                                        data-name="{{ cert.name }}"
+                                        data-user="{{ cert.user.username }}"
+                                        data-givenfor="{{ cert.givenfor }}"
+                                        data-date="{{ cert.date|date:'Y-m-d H:i:s' }}"
+                                        data-state="Одобрено"
+                                        data-photo="{% if cert.photo %}{{ cert.photo.url }}{% endif %}">
+                                    Просмотр
+                                </button>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="3">Нет одобренных сертификатов.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -105,16 +139,16 @@
                                 <p id="view-cert-user" class="mt-1"></p>
                             </div>
                             <div class="mb-3">
-                                <strong>Выдана за:</strong>
+                                <strong>Выдан за:</strong>
                                 <p id="view-cert-givenfor" class="mt-1"></p>
                             </div>
                             <div class="mb-3">
-                                <strong>Отправлена:</strong>
+                                <strong>Отправлен:</strong>
                                 <p id="view-cert-date" class="mt-1"></p>
                             </div>
                             <div class="mb-3">
                                 <strong>Статус:</strong>
-                                <p id="view-cert-status" class="mt-1"><span class="badge bg-warning">Pending</span></p>
+                                <p id="view-cert-status" class="mt-1"><span class="badge bg-warning">Ожидает</span></p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -126,7 +160,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                 </div>
             </div>
         </div>
@@ -188,19 +222,23 @@
                 const certGivenFor = this.dataset.givenfor;
                 const certDate = this.dataset.date;
                 const certPhoto = this.dataset.photo;
+                const certState = this.dataset.state || 'Ожидает';
 
                 document.getElementById('view-cert-name').textContent = certName;
                 document.getElementById('view-cert-user').textContent = certUser;
                 document.getElementById('view-cert-givenfor').textContent = certGivenFor;
                 document.getElementById('view-cert-date').textContent = certDate;
+                document.getElementById('view-cert-status').textContent = certState;
 
                 const photoContainer = document.getElementById('view-cert-photo');
                 if (certPhoto && certPhoto !== '') {
-                    photoContainer.innerHTML = `
-                        <img src="${certPhoto}" alt="Certificate Photo" class="img-fluid rounded" style="max-height: 300px; width: auto;">
-                        `
+                    if (certPhoto.endsWith('.pdf')) {
+                        photoContainer.innerHTML = '<a href="' + certPhoto + '" target="_blank" class="btn btn-primary">Открыть PDF</a>';
+                    } else {
+                        photoContainer.innerHTML = '<a href="' + certPhoto + '" target="_blank"><img src="' + certPhoto + '" alt="Certificate Photo" class="img-fluid rounded" style="max-height: 300px; width: auto; cursor: pointer;"></a><small class="d-block text-muted mt-1">Нажмите для увеличения</small>';
+                    }
                 } else {
-                    photoContainer.innerHTML = '<p class="text-muted">No photo uploaded</p>';
+                    photoContainer.innerHTML = '<p class="text-muted">Файл не загружен</p>';
                 }
 
                 const modal = new bootstrap.Modal(document.getElementById('viewCertModal'));
