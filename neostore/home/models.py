@@ -48,6 +48,10 @@ class CartItem(models.Model):
     thing = models.ForeignKey('Thing', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
+    @property
+    def subtotal(self):
+        return self.thing.value * self.quantity
+
 
 @receiver(post_save, sender=User)
 def create_user_cart(sender, instance, created, **kwargs):
