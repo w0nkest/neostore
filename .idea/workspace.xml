@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="created junk cleanup and prepared for release">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="returned debug mode on: picture were not working">
       <change beforePath="$PROJECT_DIR$/neostore/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/neostore/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/neostore/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/media/things/MTRYrgYQ_fGypLD4mRMV8wg8QWnXVYfPutkcYUDYSS5Jjgl7oGVju-_hdE3sWYEfsXuHa2IuPCyfzhfCNwOmcnFY.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +236,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775747707981</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="returned debug mode on: picture were not working">
+      <option name="closed" value="true" />
+      <created>1775750317973</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1775750317973</updated>
+    </task>
+    <task id="LOCAL-00016" summary="returned debug mode on: picture were not working">
+      <option name="closed" value="true" />
+      <created>1775750321382</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1775750321382</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +270,8 @@
     <MESSAGE value="certificates adding working" />
     <MESSAGE value="certificates finally adding money&#10;money money money &#10;must be funny&#10;lalalalala" />
     <MESSAGE value="created junk cleanup and prepared for release" />
-    <option name="LAST_COMMIT_MESSAGE" value="created junk cleanup and prepared for release" />
+    <MESSAGE value="returned debug mode on: picture were not working" />
+    <option name="LAST_COMMIT_MESSAGE" value="returned debug mode on: picture were not working" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/neostore$asgi.coverage" NAME="Результаты покрытия asgi" MODIFIED="1775652751189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neostore/neostore" />
