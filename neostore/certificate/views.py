@@ -7,7 +7,7 @@ from .forms import CertificateForm
 def upload_certificate(request):
     error = ''
     if request.method == 'POST':
-        form = CertificateForm(request.POST)
+        form = CertificateForm(request.POST, request.FILES)
         if form.is_valid():
             cert = form.save(commit=False)
             cert.user = request.user
