@@ -66,7 +66,6 @@
         </div>
     </div>
 
-    <!-- Modal for approving certificate with reward -->
     <div class="modal fade" id="priceModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -87,7 +86,6 @@
         </div>
     </div>
 
-    <!-- Modal for viewing certificate details -->
     <div class="modal fade" id="viewCertModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -152,7 +150,6 @@
             return cookieValue;
         }
 
-        // Mark delivered functionality
         document.querySelectorAll('.mark-delivered').forEach(btn => {
             btn.addEventListener('click', function() {
                 const orderId = this.dataset.id;
@@ -184,7 +181,6 @@
             });
         });
 
-        // View certificate functionality
         document.querySelectorAll('.view-cert').forEach(btn => {
             btn.addEventListener('click', function() {
                 const certName = this.dataset.name;
@@ -198,14 +194,10 @@
                 document.getElementById('view-cert-givenfor').textContent = certGivenFor;
                 document.getElementById('view-cert-date').textContent = certDate;
 
-                // Display photo if exists
                 const photoContainer = document.getElementById('view-cert-photo');
                 if (certPhoto && certPhoto !== '') {
                     photoContainer.innerHTML = `
-                        <img src="${certPhoto}" alt="Certificate Photo" class="img-fluid rounded" style="max-height: 300px; width: auto;">
-                        <br>
-                        <a href="${certPhoto}" target="_blank" class="btn btn-sm btn-link mt-2">Open in new tab</a>
-                    `;
+                        <img src="${certPhoto}" alt="Certificate Photo" class="img-fluid rounded" style="max-height: 300px; width: auto;">'
                 } else {
                     photoContainer.innerHTML = '<p class="text-muted">No photo uploaded</p>';
                 }
@@ -215,7 +207,6 @@
             });
         });
 
-        // Approve certificate functionality - show price modal
         document.querySelectorAll('.approve-cert').forEach(btn => {
             btn.addEventListener('click', function() {
                 currentCertId = this.dataset.id;
@@ -227,7 +218,6 @@
             });
         });
 
-        // Confirm approve with reward
         document.getElementById('confirm-approve').addEventListener('click', function() {
             const certId = document.getElementById('current-cert-id').value;
             const price = document.getElementById('cert-price').value;
