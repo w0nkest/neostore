@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
 
 class Wallet(models.Model):
     money = models.IntegerField(verbose_name='Money', default=0)
@@ -36,3 +39,17 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(verbose_name='Date of creation')
     state = models.BooleanField(verbose_name='Is ready', default=False)
+
+class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    thing = models.ForeignKey('Thing', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+
+@receiver(post_save, sender=User)
+def create_user_cart(sender, instance, created, **kwargs):
+    if created:
+        Cart.objects.create(user=instance)
