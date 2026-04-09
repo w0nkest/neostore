@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'home',
     'authentication',
     'things',
+    'certificate',
 ]
 
 MIDDLEWARE = [

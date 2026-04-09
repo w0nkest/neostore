@@ -4,7 +4,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>Store</h1>
     <div class="d-flex justify-content-between align-items-center mb-4" style="gap: 20px">
-        <div>{% if user.is_superuser %} <a href="{% url 'home' %}" class="btn btn-outline-dark position-relative">Manage items</a> {% endif %}</div>
+        <div>{% if user.is_superuser %} <a href="{% url 'add-things' %}" class="btn btn-outline-dark position-relative">Manage items</a> {% endif %}</div>
         <div><a href="{% url 'cart' %}" class="btn btn-outline-dark position-relative">
             Cart
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count" style="display: none;">

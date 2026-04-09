@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+
 {% block content %}
     <h1>HR Dashboard</h1>
-    
+
     <div class="row mt-4">
         <div class="col-md-6">
             <h3>Pending Certificates</h3>
@@ -13,19 +14,22 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="certificates-table">
                     {% for cert in pending_certs %}
-                        <tr>
-                            <td>{{ cert.user.get_full_name }}</td>
+                        <tr id="cert-{{ cert.id }}">
+                            <td>{{ cert.user.username }}</td>
                             <td>{{ cert.name }}</td>
-                            <td><a href="#" class="btn btn-sm btn-success">Approve</a></td>
+                            <td>
+                                <button class="btn btn-sm btn-success approve-cert" data-id="{{ cert.id }}">Approve</button>
+                            </td>
                         </tr>
                     {% empty %}
-                        <tr><td colspan="3">No pending certificates.</td></tr>
+                        <tr id="no-certs"><td colspan="3">No pending certificates.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+
         <div class="col-md-6">
             <h3>Pending Orders</h3>
             <table class="table table-hover">
@@ -36,18 +40,105 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="orders-table">
                     {% for order in orders %}
-                        <tr>
-                            <td>{{ order.user.get_full_name }}</td>
+                        <tr id="order-{{ order.id }}">
+                            <td>{{ order.user.username }}</td>
                             <td>{{ order.date }}</td>
-                            <td><a href="#" class="btn btn-sm btn-info">Mark Delivered</a></td>
+                            <td>
+                                <button class="btn btn-sm btn-info mark-delivered" data-id="{{ order.id }}">Mark Delivered</button>
+                            </td>
                         </tr>
                     {% empty %}
-                        <tr><td colspan="3">No pending orders.</td></tr>
+                        <tr id="no-orders"><td colspan="3">No pending orders.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // обработка кнопки Mark Delivered
+        document.querySelectorAll('.mark-delivered').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.dataset.id;
+                const row = document.getElementById(`order-${orderId}`);
+
+                fetch(`/mark-order/${orderId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // удаляем строку заказа
+                        row.remove();
+                        // проверяем остались ли заказы
+                        const ordersTable = document.getElementById('orders-table');
+                        if (ordersTable.children.length === 0) {
+                            ordersTable.innerHTML = '<tr id="no-orders"><td colspan="3">No pending orders.</td></tr>';
+                        }
+                    } else {
+                        alert('Error: ' + (data.error || 'Something went wrong'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to mark order as delivered');
+                });
+            });
+        });
+
+        // обработка кнопки Approve Certificate
+        document.querySelectorAll('.approve-cert').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const certId = this.dataset.id;
+                const row = document.getElementById(`cert-${certId}`);
+
+                fetch(`/approve-cert/${certId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // удаляем строку сертификата
+                        row.remove();
+                        // проверяем остались ли сертификаты
+                        const certsTable = document.getElementById('certificates-table');
+                        if (certsTable.children.length === 0) {
+                            certsTable.innerHTML = '<tr id="no-certs"><td colspan="3">No pending certificates.</td></tr>';
+                        }
+                    } else {
+                        alert('Error: ' + (data.error || 'Something went wrong'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to approve certificate');
+                });
+            });
+        });
+    </script>
 {% endblock %}

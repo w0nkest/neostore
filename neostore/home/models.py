@@ -28,6 +28,7 @@ class Certificate(models.Model):
     state = models.BooleanField(verbose_name='Is Checked', default=False)
     name = models.CharField(verbose_name='Name', max_length=100)
     givenfor = models.CharField(verbose_name='Given for', max_length=100)
+    date = models.DateTimeField(verbose_name='Date of birth', null=True, auto_now_add=True)
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

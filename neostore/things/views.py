@@ -1,9 +1,7 @@
 import json
-import os
-from PIL import Image
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .forms import ThingsForm
 from home.models import Thing, Cart, CartItem, Order, OrderItem
 
@@ -14,6 +12,9 @@ def display(request):
 
 
 def add(request):
+    if not request.user.is_superuser:
+        return HttpResponse("Forbidden", status=403)
+
     error = ''
     if request.method == 'POST':
         form = ThingsForm(request.POST, request.FILES)
@@ -21,10 +22,7 @@ def add(request):
             form.save()
             return redirect('store')
         else:
-            print(form.errors)
-            print()
-            print(form)
-            error = 'Данные не верны!'
+            error = 'Wrong data!'
 
     form = ThingsForm()
     data = {'form': form, 'error': error}

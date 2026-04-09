@@ -4,14 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="cart filling logic created">
+    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="payment added, orders being created">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/authentication/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/authentication/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/authentication/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/authentication/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/employee_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/employee_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/user_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/user_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/neostore/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/neostore/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/neostore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/neostore/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/adder.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/adder.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/store.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/store.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/things/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/things/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -96,6 +101,7 @@
       <recent name="$PROJECT_DIR$/neostore/auth" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/neostore/certificate/templates/certificate" />
       <recent name="$PROJECT_DIR$/neostore/things" />
       <recent name="$PROJECT_DIR$/neostore/things/templates/things" />
       <recent name="$PROJECT_DIR$/neostore/home/templates/home" />
@@ -193,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775721085277</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="payment added, orders being created">
+      <option name="closed" value="true" />
+      <created>1775736452520</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1775736452520</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,7 +221,8 @@
     <MESSAGE value="created pages, made order class" />
     <MESSAGE value="fixed logout issue and removed unnecessary &quot;is_hr&quot; field, replaced with included &quot;is_superuser&quot;" />
     <MESSAGE value="cart filling logic created" />
-    <option name="LAST_COMMIT_MESSAGE" value="cart filling logic created" />
+    <MESSAGE value="payment added, orders being created" />
+    <option name="LAST_COMMIT_MESSAGE" value="payment added, orders being created" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/neostore$asgi.coverage" NAME="Результаты покрытия asgi" MODIFIED="1775652751189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neostore/neostore" />
