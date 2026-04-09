@@ -35,11 +35,23 @@ class Order(models.Model):
     date = models.DateTimeField(verbose_name='Date of creation', auto_now_add=True)
     state = models.BooleanField(verbose_name='Is ready', default=False)
 
+    @property
+    def total(self):
+        total_sum = 0
+        for item in self.items.all():
+            price = item.price if item.price else item.thing.value
+            total_sum += item.quantity * price
+        return total_sum
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     thing = models.ForeignKey(Thing, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     price = models.PositiveIntegerField(default=0)
+
+    @property
+    def subtotal(self):
+        return self.quantity * self.price
 
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

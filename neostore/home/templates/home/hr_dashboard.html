@@ -57,7 +57,30 @@
         </div>
     </div>
 
+    <!-- Модальное окно для ввода цены сертификата -->
+    <div class="modal fade" id="priceModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Certificate Reward</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Enter reward amount for this certificate:</p>
+                    <input type="number" id="cert-price" class="form-control" placeholder="Amount in NeoCoins" min="0">
+                    <input type="hidden" id="current-cert-id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" id="confirm-approve">Approve & Reward</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        let currentCertId = null;
+
         function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -89,12 +112,10 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // удаляем строку заказа
                         row.remove();
-                        // проверяем остались ли заказы
                         const ordersTable = document.getElementById('orders-table');
                         if (ordersTable.children.length === 0) {
-                            ordersTable.innerHTML = '<tr id="no-orders"><td colspan="3">No pending orders.</td></tr>';
+                            ordersTable.innerHTML = '<tr id="no-orders"><td colspan="3">No pending orders.</td>';
                         }
                     } else {
                         alert('Error: ' + (data.error || 'Something went wrong'));
@@ -107,37 +128,55 @@
             });
         });
 
-        // обработка кнопки Approve Certificate
+        // обработка кнопки Approve Certificate - открываем модалку
         document.querySelectorAll('.approve-cert').forEach(btn => {
             btn.addEventListener('click', function() {
-                const certId = this.dataset.id;
-                const row = document.getElementById(`cert-${certId}`);
+                currentCertId = this.dataset.id;
+                document.getElementById('current-cert-id').value = currentCertId;
+                document.getElementById('cert-price').value = '';
 
-                fetch(`/approve-cert/${certId}/`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': getCookie('csrftoken'),
-                        'Content-Type': 'application/json',
+                const modal = new bootstrap.Modal(document.getElementById('priceModal'));
+                modal.show();
+            });
+        });
+
+        // подтверждение апрува с ценой
+        document.getElementById('confirm-approve').addEventListener('click', function() {
+            const certId = document.getElementById('current-cert-id').value;
+            const price = document.getElementById('cert-price').value;
+            const row = document.getElementById(`cert-${certId}`);
+
+            if (!price || parseInt(price) <= 0) {
+                alert('Please enter a valid reward amount');
+                return;
+            }
+
+            fetch(`/approve-cert/${certId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ reward: parseInt(price) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    row.remove();
+                    const certsTable = document.getElementById('certificates-table');
+                    if (certsTable.children.length === 0) {
+                        certsTable.innerHTML = '<tr id="no-certs"><td colspan="3">No pending certificates.<tr>';
                     }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // удаляем строку сертификата
-                        row.remove();
-                        // проверяем остались ли сертификаты
-                        const certsTable = document.getElementById('certificates-table');
-                        if (certsTable.children.length === 0) {
-                            certsTable.innerHTML = '<tr id="no-certs"><td colspan="3">No pending certificates.</td></tr>';
-                        }
-                    } else {
-                        alert('Error: ' + (data.error || 'Something went wrong'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Failed to approve certificate');
-                });
+                    // закрываем модалку
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('priceModal'));
+                    modal.hide();
+                } else {
+                    alert('Error: ' + (data.error || 'Something went wrong'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to approve certificate');
             });
         });
     </script>

@@ -170,3 +170,9 @@ def checkout(request):
             return JsonResponse({'success': False, 'error': 'Insufficient funds'})
 
     return JsonResponse({'success': False, 'error': 'Invalid method'})
+
+
+@login_required
+def orders(request):
+    orders = Order.objects.filter(user=request.user).order_by('-date')
+    return render(request, 'things/orders.html', {'orders': orders})

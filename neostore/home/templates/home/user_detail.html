@@ -9,25 +9,31 @@
         </div>
         <hr>
         <div class="row text-center">
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <h5>Current Balance</h5>
                 <p class="fs-5">{{ user.wallet.money }} <small>NeoCoins</small></p>
             </div>
-            <div class="col-md-3">
-                <h5>Active Orders</h5>
-                <p class="fs-5">{{ active_orders }} <small>in progress</small></p>
-            </div>
-            <div class="col-md-3">
-                <h5>Pending Certificates</h5>
-                <p class="fs-5">{{ pending_certs }} <small>awaiting</small></p>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <h5>Role</h5>
                 <p class="fs-5">{% if user.is_superuser %}HR Manager{% else %}Employee{% endif %}</p>
             </div>
         </div>
-        <div class="text-center mt-3">
-            <a class="btn btn-success" href="{% url 'upload-certificate' %}">Upload certificate</a>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <h5>Active Orders</h5>
+                    <p class="fs-5">{{ active_orders }} <small>in progress</small></p>
+                    <a class="btn btn-success mt-2" href="{% url 'orders' %}">Check orders</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center">
+                    <h5>Pending Certificates</h5>
+                    <p class="fs-5">{{ pending_certs }} <small>awaiting</small></p>
+                    <a class="btn btn-success mt-2" href="{% url 'upload-certificate' %}">Upload certificate</a>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

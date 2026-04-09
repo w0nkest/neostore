@@ -1,7 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView, ListView
 from django.contrib.auth import get_user_model
 from .models import User, Thing, Certificate, Order, Wallet
@@ -46,7 +47,7 @@ def store(request):
 @login_required
 def hr_dashboard(request):
     if not request.user.is_superuser:
-        return HttpResponse("Forbidden", status=403)
+        return JsonResponse({'success': False, 'error': 'Forbidden'}, status=403)
     
     pending_certs = Certificate.objects.filter(state=False)
     orders = Order.objects.filter(state=False)
@@ -54,14 +55,6 @@ def hr_dashboard(request):
         'pending_certs': pending_certs,
         'orders': orders
     })
-
-@login_required
-def hr_inventory(request):
-    if not request.user.is_superuser:
-        return HttpResponse("Forbidden", status=403)
-    
-    things = Thing.objects.all()
-    return render(request, 'home/hr_inventory.html', {'things': things})
 
 
 @login_required
@@ -78,15 +71,73 @@ def mark_order_delivered(request, order_id):
     return JsonResponse({'success': False, 'error': 'Invalid method'}, status=400)
 
 
+import json
+
+
 @login_required
 def approve_certificate(request, cert_id):
     if not request.user.is_superuser:
         return JsonResponse({'success': False, 'error': 'Forbidden'}, status=403)
 
     if request.method == 'POST':
+        data = json.loads(request.body)
+        reward = data.get('reward', 0)
+
+        if reward <= 0:
+            return JsonResponse({'success': False, 'error': 'Invalid reward amount'}, status=400)
+
         cert = get_object_or_404(Certificate, id=cert_id)
         cert.state = True
         cert.save()
+
+        wallet = cert.user.wallet
+        wallet.money += reward
+        wallet.save()
+
         return JsonResponse({'success': True})
 
     return JsonResponse({'success': False, 'error': 'Invalid method'}, status=400)
+
+
+@login_required
+def challenge(request):
+    if not request.user.is_superuser:
+        return JsonResponse({'success': False, 'error': 'Forbidden'}, status=403)
+
+    if request.method == 'POST':
+        selected_users_json = request.POST.get('selected_users')
+        amount = int(request.POST.get('amount', 0))
+
+        if amount <= 0:
+            messages.error(request, 'Invalid amount')
+            return redirect('challenge')
+
+        selected_users = json.loads(selected_users_json)
+
+        for user_id in selected_users:
+            user = User.objects.get(id=user_id)
+            user.wallet.money += amount
+            user.wallet.save()
+
+        messages.success(request, f'Successfully rewarded {amount} NeoCoins to {len(selected_users)} user(s)')
+        return redirect('challenge')
+
+    users = User.objects.all()
+    nowallet = any(user.wallet is None for user in users)
+
+    return render(request, 'home/challenges.html', {'users': users, 'nowallet': nowallet})
+
+
+@login_required
+def wallet_creation(request):
+    if not request.user.is_superuser:
+        return JsonResponse({'success': False, 'error': 'Forbidden'}, status=403)
+
+    users = User.objects.all()
+    for user in users:
+        if user.wallet is None:
+            wallet = Wallet.objects.create()
+            user.wallet = wallet
+            user.save()
+
+    return redirect('challenge')

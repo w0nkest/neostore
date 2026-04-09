@@ -17,6 +17,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'store' %}">Store</a></li>
                         {% if user.is_superuser %}
                             <li class="nav-item"><a class="nav-link text-warning" href="{% url 'hr-dashboard' %}">HR Panel</a></li>
+                            <li class="nav-item"><a class="nav-link text-warning" href="{% url 'challenge' %}">Challenges</a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'user-profile' %}">Profile</a></li>
                         <li class="nav-item"><form method="post" action="{% url 'logout' %}">
