@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="added photo certificate photo">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="fixed unworking view button on certificate page">
       <change beforePath="$PROJECT_DIR$/neostore/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +67,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "dev__evgen",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "/Users/w0nkest/PycharmProjects/neostore/neostore/authentication/templates/registration",
     "node.js.detected.package.eslint": "true",
@@ -293,7 +291,31 @@
       <option name="project" value="LOCAL" />
       <updated>1775758331071</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="deleted unnecessary link">
+      <option name="closed" value="true" />
+      <created>1775758781196</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1775758781196</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fixed unworking view button on certificate page">
+      <option name="closed" value="true" />
+      <created>1775759535137</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1775759535137</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fixed unworking view button on certificate page">
+      <option name="closed" value="true" />
+      <created>1775759539712</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1775759539712</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,7 +339,9 @@
     <MESSAGE value="deleted cleanup file" />
     <MESSAGE value="filtering things by amount, displaying objects with amount gt 0" />
     <MESSAGE value="added photo certificate photo" />
-    <option name="LAST_COMMIT_MESSAGE" value="added photo certificate photo" />
+    <MESSAGE value="deleted unnecessary link" />
+    <MESSAGE value="fixed unworking view button on certificate page" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed unworking view button on certificate page" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/neostore$asgi.coverage" NAME="Результаты покрытия asgi" MODIFIED="1775652751189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neostore/neostore" />
