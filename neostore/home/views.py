@@ -35,7 +35,7 @@ def store(request):
 
 @login_required
 def hr_dashboard(request):
-    if not request.user.is_hr:
+    if not request.user.is_superuser:
         return HttpResponse("Forbidden", status=403)
     
     pending_certs = Certificate.objects.filter(state=False)
@@ -47,7 +47,7 @@ def hr_dashboard(request):
 
 @login_required
 def hr_inventory(request):
-    if not request.user.is_hr:
+    if not request.user.is_superuser:
         return HttpResponse("Forbidden", status=403)
     
     things = Thing.objects.all()
