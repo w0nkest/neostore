@@ -57,7 +57,6 @@
         </div>
     </div>
 
-    <!-- Модальное окно для ввода цены сертификата -->
     <div class="modal fade" id="priceModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -96,7 +95,6 @@
             return cookieValue;
         }
 
-        // обработка кнопки Mark Delivered
         document.querySelectorAll('.mark-delivered').forEach(btn => {
             btn.addEventListener('click', function() {
                 const orderId = this.dataset.id;
@@ -128,7 +126,6 @@
             });
         });
 
-        // обработка кнопки Approve Certificate - открываем модалку
         document.querySelectorAll('.approve-cert').forEach(btn => {
             btn.addEventListener('click', function() {
                 currentCertId = this.dataset.id;
@@ -140,7 +137,6 @@
             });
         });
 
-        // подтверждение апрува с ценой
         document.getElementById('confirm-approve').addEventListener('click', function() {
             const certId = document.getElementById('current-cert-id').value;
             const price = document.getElementById('cert-price').value;
@@ -167,7 +163,6 @@
                     if (certsTable.children.length === 0) {
                         certsTable.innerHTML = '<tr id="no-certs"><td colspan="3">No pending certificates.<tr>';
                     }
-                    // закрываем модалку
                     const modal = bootstrap.Modal.getInstance(document.getElementById('priceModal'));
                     modal.hide();
                 } else {

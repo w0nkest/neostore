@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="returned debug mode on: picture were not working">
-      <change beforePath="$PROJECT_DIR$/neostore/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/media/things/MTRYrgYQ_fGypLD4mRMV8wg8QWnXVYfPutkcYUDYSS5Jjgl7oGVju-_hdE3sWYEfsXuHa2IuPCyfzhfCNwOmcnFY.jpg" beforeDir="false" />
+    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="cleared table">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/authentication/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/authentication/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/certificate/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/certificate/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/things/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/store.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/store.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/things/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +260,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775750321382</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="cleared table">
+      <option name="closed" value="true" />
+      <created>1775750731303</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1775750731303</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,7 +287,8 @@
     <MESSAGE value="certificates finally adding money&#10;money money money &#10;must be funny&#10;lalalalala" />
     <MESSAGE value="created junk cleanup and prepared for release" />
     <MESSAGE value="returned debug mode on: picture were not working" />
-    <option name="LAST_COMMIT_MESSAGE" value="returned debug mode on: picture were not working" />
+    <MESSAGE value="cleared table" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleared table" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/neostore$asgi.coverage" NAME="Результаты покрытия asgi" MODIFIED="1775652751189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neostore/neostore" />

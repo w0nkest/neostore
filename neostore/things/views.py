@@ -127,7 +127,6 @@ def update_cart_quantity(request, thing_id):
     return JsonResponse({'success': False}, status=400)
 
 
-
 @login_required
 def cart_display(request):
     cart, _ = Cart.objects.get_or_create(user=request.user)

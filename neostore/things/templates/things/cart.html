@@ -55,7 +55,6 @@
 </div>
 
 <script>
-// передаем баланс из контекста Django в JavaScript
 const USER_BALANCE = {{ money|default:0 }};
 
 function getCookie(name) {
@@ -118,17 +117,14 @@ async function updateCartQuantity(thingId, quantity) {
     return await response.json();
 }
 
-// обработчик оплаты
 document.getElementById('PayBtn')?.addEventListener('click', async function(e) {
     e.preventDefault();
 
-    // проверяем достаточно ли средств
     const totalPrice = parseInt(document.getElementById('total-price').textContent);
     if (USER_BALANCE < totalPrice) {
-        return; // не хватает денег - ничего не делаем
+        return;
     }
 
-    // отправляем запрос на оплату
     const response = await fetch('/shop/checkout/', {
         method: 'POST',
         headers: {
@@ -160,7 +156,6 @@ document.querySelectorAll('.quantity-control').forEach(control => {
         document.getElementById('total-price').textContent = newTotalPrice;
         updateCartCount(cartCount);
 
-        // проверяем баланс при каждом обновлении
         checkBalance(newTotalPrice);
 
         if (stockLeft <= 0) {
@@ -220,11 +215,9 @@ document.querySelectorAll('.quantity-control').forEach(control => {
     });
 });
 
-// начальная проверка баланса при загрузке
 const initialTotal = parseInt(document.getElementById('total-price').textContent);
 checkBalance(initialTotal);
 
-// загружаем счетчик корзины
 fetch('/shop/cart-count/')
     .then(response => response.json())
     .then(data => {

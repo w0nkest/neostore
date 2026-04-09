@@ -97,20 +97,17 @@ async function updateStock(thingId, delta) {
         const currentQty = input ? parseInt(input.value) : 0;
 
         if (currentStock <= 0) {
-            // остаток 0 - плюс неактивен
             if (incBtn) {
                 incBtn.disabled = true;
                 incBtn.classList.remove('btn-success');
                 incBtn.classList.add('btn-secondary');
             }
-            // минус активен только если есть товары в корзине
             if (decBtn && currentQty <= 0) {
                 decBtn.disabled = true;
                 decBtn.classList.remove('btn-success');
                 decBtn.classList.add('btn-secondary');
             }
         } else {
-            // есть остаток - активируем плюс
             if (incBtn) {
                 incBtn.disabled = false;
                 incBtn.classList.remove('btn-secondary');
@@ -126,7 +123,6 @@ async function initProduct(thingId) {
     const quantity = data.quantity;
     const stock = data.stock;
 
-    // обновляем отображение остатка на странице
     const stockSpan = document.querySelector(`.stock-count[data-id="${thingId}"]`);
     if (stockSpan) {
         stockSpan.textContent = stock;
@@ -212,7 +208,6 @@ document.querySelectorAll('.buy-now-btn').forEach(btn => {
             buyBtn.style.display = 'none';
             input.value = 1;
 
-            // активируем кнопки
             incBtn.disabled = false;
             incBtn.classList.remove('btn-secondary');
             incBtn.classList.add('btn-success');
@@ -278,7 +273,6 @@ document.querySelectorAll('.dec-btn').forEach(btn => {
                     buyBtn.disabled = false;
                 }
 
-                // возвращаем остаток
                 await updateStock(thingId, -1);
             }
         } else {

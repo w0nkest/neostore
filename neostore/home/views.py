@@ -8,9 +8,11 @@ from django.contrib.auth import get_user_model
 from .models import User, Thing, Certificate, Order, Wallet
 from neostore.junk_catch import cleanup
 
+
 def home(request):
     cleanup()
     return render(request, 'home/home.html')
+
 
 class UserProfileView(LoginRequiredMixin, DetailView):
     model = User
@@ -29,6 +31,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
 
         return context
 
+
 @login_required
 def employee_dashboard(request):
     user = request.user
@@ -41,16 +44,18 @@ def employee_dashboard(request):
         'orders': my_orders,
     })
 
+
 @login_required
 def store(request):
     things = Thing.objects.filter(amount__gt=0)
     return render(request, 'home/store.html', {'things': things})
 
+
 @login_required
 def hr_dashboard(request):
     if not request.user.is_superuser:
         return JsonResponse({'success': False, 'error': 'Forbidden'}, status=403)
-    
+
     pending_certs = Certificate.objects.filter(state=False)
     orders = Order.objects.filter(state=False)
     return render(request, 'home/hr_dashboard.html', {
