@@ -93,6 +93,16 @@ def update_cart_quantity(request, thing_id):
         old_item = CartItem.objects.filter(cart=cart, thing=thing).first()
         old_quantity = old_item.quantity if old_item else 0
 
+        if new_quantity > old_quantity:
+            diff_to_add = new_quantity - old_quantity
+            if diff_to_add > thing.amount:
+                return JsonResponse({
+                    'success': False,
+                    'error': f'Only {thing.amount} left',
+                    'max_reached': True,
+                    'stock': thing.amount
+                }, status=400)
+
         diff = old_quantity - new_quantity
 
         if new_quantity <= 0:
@@ -106,12 +116,24 @@ def update_cart_quantity(request, thing_id):
         thing.save()
 
         total_items = sum(item.quantity for item in cart.items.all())
+        cart_total = sum(item.thing.value * item.quantity for item in cart.items.all())
 
         return JsonResponse({
             'success': True,
             'quantity': new_quantity,
             'cart_count': total_items,
-            'new_stock': thing.amount
+            'cart_total': cart_total,
+            'stock': thing.amount
         })
 
     return JsonResponse({'success': False}, status=400)
+
+
+
+@login_required
+def cart(request):
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    items = CartItem.objects.filter(cart=cart)
+    totalprice = sum(it.subtotal for it in items)
+
+    return render(request, 'things/cart.html', {'items': items, 'totalprice': totalprice})

@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Shopping Cart</h1>
+        <a href="{% url 'store' %}" class="btn btn-secondary">Continue Shopping</a>
+    </div>
+
+    {% if items %}
+        <div class="d-flex flex-column align-items-center" style="gap: 20px;">
+            {% for item in items %}
+            <div class="card" style="width: 40vw;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ item.thing.photo.url }}" class="img-fluid rounded-start" alt="{{ item.thing.name }}" style="height: 200px; width: 100%; object-fit: cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.thing.name }}</h5>
+                            <p class="card-text text-primary fw-bold">{{ item.thing.value }} NeoCoins each</p>
+
+                            <!-- Контрол количества -->
+                            <div class="quantity-control mt-3" data-id="{{ item.thing.id }}">
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-danger dec-btn" type="button">−</button>
+                                    <input type="text" class="form-control text-center quantity-input" value="{{ item.quantity }}" readonly style="width: 60px;">
+                                    <button class="btn btn-success inc-btn" type="button">+</button>
+                                </div>
+                            </div>
+
+                            <p class="mt-3 mb-0">
+                                <strong>Subtotal: <span class="subtotal">{{ item.subtotal }}</span> NeoCoins</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-4">
+            <h3>Total: <span id="total-price">{{ totalprice }}</span> NeoCoins</h3>
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <h3>Your cart is empty</h3>
+            <a href="{% url 'store' %}" class="btn btn-primary mt-3">Go to Store</a>
+        </div>
+    {% endif %}
+</div>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function updateCartCount(count) {
+    const cartCountSpan = document.getElementById('cart-count');
+    if (cartCountSpan) {
+        cartCountSpan.textContent = count;
+        cartCountSpan.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+}
+
+async function updateCartQuantity(thingId, quantity) {
+    const response = await fetch(`/shop/update-cart-quantity/${thingId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quantity: quantity })
+    });
+    return await response.json();
+}
+
+document.querySelectorAll('.quantity-control').forEach(control => {
+    const thingId = parseInt(control.dataset.id);
+    const input = control.querySelector('.quantity-input');
+    const decBtn = control.querySelector('.dec-btn');
+    const incBtn = control.querySelector('.inc-btn');
+    const card = control.closest('.card');
+    const subtotalSpan = card.querySelector('.subtotal');
+    const pricePerItem = parseInt(card.querySelector('.text-primary').textContent);
+
+    async function updateDisplay(quantity, newSubtotal, newTotalPrice, cartCount, stockLeft) {
+        input.value = quantity;
+        subtotalSpan.textContent = newSubtotal;
+        document.getElementById('total-price').textContent = newTotalPrice;
+        updateCartCount(cartCount);
+
+        // блокируем плюс если остаток 0
+        if (stockLeft <= 0) {
+            incBtn.disabled = true;
+            incBtn.classList.remove('btn-success');
+            incBtn.classList.add('btn-secondary');
+        } else {
+            incBtn.disabled = false;
+            incBtn.classList.remove('btn-secondary');
+            incBtn.classList.add('btn-success');
+        }
+
+        if (quantity === 0) {
+            card.remove();
+            if (document.querySelectorAll('.quantity-control').length === 0) {
+                location.reload();
+            }
+        }
+    }
+
+    decBtn.addEventListener('click', async () => {
+        let currentQty = parseInt(input.value);
+        if (currentQty <= 1) {
+            const result = await updateCartQuantity(thingId, 0);
+            if (result.success) {
+                await updateDisplay(0, 0, result.cart_total, result.cart_count, result.stock);
+            }
+        } else {
+            const newQty = currentQty - 1;
+            const result = await updateCartQuantity(thingId, newQty);
+            if (result.success) {
+                const newSubtotal = newQty * pricePerItem;
+                await updateDisplay(newQty, newSubtotal, result.cart_total, result.cart_count, result.stock);
+            }
+        }
+    });
+
+    incBtn.addEventListener('click', async () => {
+        if (incBtn.disabled) return;
+
+        let currentQty = parseInt(input.value);
+        const newQty = currentQty + 1;
+
+        const result = await updateCartQuantity(thingId, newQty);
+        if (result.success) {
+            const newSubtotal = newQty * pricePerItem;
+            await updateDisplay(newQty, newSubtotal, result.cart_total, result.cart_count, result.stock);
+        } else if (result.max_reached) {
+            incBtn.disabled = true;
+            incBtn.classList.remove('btn-success');
+            incBtn.classList.add('btn-secondary');
+            incBtn.textContent = 'Out!';
+            setTimeout(() => {
+                incBtn.textContent = '+';
+            }, 1500);
+        }
+    });
+});
+
+// загружаем счетчик при загрузке
+fetch('/shop/cart-count/')
+    .then(response => response.json())
+    .then(data => {
+        updateCartCount(data.cart_count);
+    });
+</script>
+
+<style>
+.quantity-control {
+    margin-top: 10px;
+}
+.quantity-control .btn-group {
+    gap: 2px;
+    display: flex;
+    justify-content: flex-start;
+}
+.quantity-control .btn-group button {
+    width: 38px;
+    flex: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 6px 0;
+}
+.quantity-control .quantity-input {
+    width: 60px;
+    flex: none;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 6px 0;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.quantity-control .quantity-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+</style>
+{% endblock %}

@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="fixed logout issue and removed unnecessary &quot;is_hr&quot; field, replaced with included &quot;is_superuser&quot;">
+    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="cart filling logic created">
+      <change afterPath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/store.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/store.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/home/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/neostore/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/neostore/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/neostore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/neostore/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/shop.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/store.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/store.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/things/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/things/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/views.py" afterDir="false" />
     </list>
@@ -186,7 +183,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775713786644</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="cart filling logic created">
+      <option name="closed" value="true" />
+      <created>1775721085277</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1775721085277</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +204,8 @@
     <MESSAGE value="added migrations file" />
     <MESSAGE value="created pages, made order class" />
     <MESSAGE value="fixed logout issue and removed unnecessary &quot;is_hr&quot; field, replaced with included &quot;is_superuser&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed logout issue and removed unnecessary &quot;is_hr&quot; field, replaced with included &quot;is_superuser&quot;" />
+    <MESSAGE value="cart filling logic created" />
+    <option name="LAST_COMMIT_MESSAGE" value="cart filling logic created" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/neostore$asgi.coverage" NAME="Результаты покрытия asgi" MODIFIED="1775652751189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neostore/neostore" />
