@@ -7,7 +7,7 @@ from home.models import Thing, Cart, CartItem, Order, OrderItem
 
 
 def display(request):
-    things = Thing.objects.all()
+    things = Thing.objects.filter(amount__gt=0)
     return render(request, 'things/store.html', {'things': things})
 
 
