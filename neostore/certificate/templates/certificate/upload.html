@@ -6,24 +6,24 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-dark text-white">
-                    <h3 class="mb-0">Add New Item</h3>
+                    <h3 class="mb-0">Загрузить сертификат</h3>
                 </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
 
                         <div class="mb-3">
-                            <label class="form-label">Photo</label>
+                            <label class="form-label">Фото</label>
                             {{ form.photo }}
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Name</label>
+                            <label class="form-label">Название</label>
                             {{ form.name }}
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Given for</label>
+                            <label class="form-label">Выдана за</label>
                             {{ form.givenfor }}
                         </div>
 
@@ -31,8 +31,8 @@
                             <div class="alert alert-danger">{{ error }}</div>
                         {% endif %}
 
-                        <button type="submit" class="btn btn-success">Submit</button>
-                        <a href="{% url 'user-profile' %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-success">Отправить</button>
+                        <a href="{% url 'user-profile' %}" class="btn btn-secondary">Отмена</a>
                     </form>
                 </div>
             </div>

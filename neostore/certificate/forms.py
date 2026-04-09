@@ -8,7 +8,7 @@ class CertificateForm(ModelForm):
         fields = ['name', 'givenfor', 'photo']
 
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}),
-            'givenfor': TextInput(attrs={'class': 'form-control', 'placeholder': 'Given for '}),
+            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Название'}),
+            'givenfor': TextInput(attrs={'class': 'form-control', 'placeholder': 'Выдана за'}),
             'photo': FileInput(attrs={'class': 'form-control', 'placeholder': 'Photo', 'accept': 'image/*'}),
         }
