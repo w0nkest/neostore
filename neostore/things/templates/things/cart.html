@@ -90,7 +90,7 @@ function checkBalance(totalPrice) {
     if (userBalance >= totalPrice) {
         payLink.classList.remove('btn-secondary', 'disabled');
         payLink.classList.add('btn-success');
-        payLink.textContent = 'Pay';
+        payLink.textContent = 'Оплатить';
         payLink.style.pointerEvents = 'auto';
         warningDiv.style.display = 'none';
     } else {

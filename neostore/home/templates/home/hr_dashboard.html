@@ -20,7 +20,7 @@
                             <td>{{ cert.user.username }}</td>
                             <td>{{ cert.name }}</td>
                             <td>
-                                <button class="btn btn-sm btn-info view-cert"
+                                <button class="btn btn-sm btn-outline-secondary view-cert"
                                         data-id="{{ cert.id }}"
                                         data-name="{{ cert.name }}"
                                         data-user="{{ cert.user.username }}"
@@ -54,7 +54,7 @@
                             <td>{{ cert.user.username }}</td>
                             <td>{{ cert.name }}</td>
                             <td>
-                                <button class="btn btn-sm btn-info view-cert"
+                                <button class="btn btn-sm btn-outline-secondary view-cert"
                                         data-id="{{ cert.id }}"
                                         data-name="{{ cert.name }}"
                                         data-user="{{ cert.user.username }}"
@@ -89,7 +89,7 @@
                             <td>{{ order.user.username }}</td>
                             <td>{{ order.date|date:"d.m.Y H:i" }}</td>
                             <td>
-                                <button class="btn btn-sm btn-info mark-delivered" data-id="{{ order.id }}">Отметить доставленным</button>
+                                <button class="btn btn-sm btn-outline-secondary mark-delivered" data-id="{{ order.id }}">Отметить доставленным</button>
                             </td>
                         </tr>
                     {% empty %}

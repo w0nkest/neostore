@@ -5,7 +5,7 @@
 
     <div class="row mt-4">
         <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3">
+            <div class="card text-white mb-3" style="background-color: #FFB007;">
                 <div class="card-body">
                     <h5 class="card-title">Ваш баланс</h5>
                     <p class="card-text fs-2">{{ balance }} <small>NeoCoins</small></p>
@@ -39,7 +39,7 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-info view-cert" data-id="{{ cert.id }}" data-name="{{ cert.name }}" data-givenfor="{{ cert.givenfor }}" data-date="{{ cert.date|date:'Y-m-d H:i:s' }}" data-state="{% if cert.state %}Одобрено{% else %}Ожидает{% endif %}" data-photo="{% if cert.photo %}{{ cert.photo.url }}{% endif %}">Просмотр</button>
+                                <button class="btn btn-sm btn-outline-secondary view-cert" data-id="{{ cert.id }}" data-name="{{ cert.name }}" data-givenfor="{{ cert.givenfor }}" data-date="{{ cert.date|date:'Y-m-d H:i:s' }}" data-state="{% if cert.state %}Одобрено{% else %}Ожидает{% endif %}" data-photo="{% if cert.photo %}{{ cert.photo.url }}{% endif %}">Просмотр</button>
                                 {% if not cert.state %}
                                     <button class="btn btn-sm btn-danger delete-cert" data-id="{{ cert.id }}">Удалить</button>
                                 {% endif %}
