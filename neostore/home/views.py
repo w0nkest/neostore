@@ -6,8 +6,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView, ListView
 from django.contrib.auth import get_user_model
 from .models import User, Thing, Certificate, Order, Wallet
+from neostore.junk_catch import cleanup
 
 def home(request):
+    cleanup()
     return render(request, 'home/home.html')
 
 class UserProfileView(LoginRequiredMixin, DetailView):
