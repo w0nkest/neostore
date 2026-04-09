@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="fixed unworking view button on certificate page">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neostore/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/employee_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/employee_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/things/templates/things/cart.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +71,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "dev__evgen",
+    "git-widget-placeholder": "devvv__evgen",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "/Users/w0nkest/PycharmProjects/neostore/neostore/authentication/templates/registration",
     "node.js.detected.package.eslint": "true",

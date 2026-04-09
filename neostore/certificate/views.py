@@ -14,7 +14,7 @@ def upload_certificate(request):
             cert.save()
             return redirect('user-profile')
         else:
-            error = 'Wrong data!'
+            error = 'Неверные данные!'
 
     form = CertificateForm()
     data = {'form': form, 'error': error}

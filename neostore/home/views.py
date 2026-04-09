@@ -57,9 +57,11 @@ def hr_dashboard(request):
         return JsonResponse({'success': False, 'error': 'Forbidden'}, status=403)
 
     pending_certs = Certificate.objects.filter(state=False)
+    approved_certs = Certificate.objects.filter(state=True)
     orders = Order.objects.filter(state=False)
     return render(request, 'home/hr_dashboard.html', {
         'pending_certs': pending_certs,
+        'approved_certs': approved_certs,
         'orders': orders
     })
 
@@ -133,6 +135,17 @@ def challenge(request):
     nowallet = any(user.wallet is None for user in users)
 
     return render(request, 'home/challenges.html', {'users': users, 'nowallet': nowallet})
+
+
+@login_required
+def delete_certificate(request, cert_id):
+    if request.method == 'POST':
+        cert = get_object_or_404(Certificate, id=cert_id, user=request.user)
+        if cert.state:
+            return JsonResponse({'success': False, 'error': 'Нельзя удалить одобренный сертификат'}, status=400)
+        cert.delete()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False, 'error': 'Неверный метод'}, status=400)
 
 
 @login_required

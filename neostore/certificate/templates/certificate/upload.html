@@ -13,8 +13,9 @@
                         {% csrf_token %}
 
                         <div class="mb-3">
-                            <label class="form-label">Фото</label>
+                            <label class="form-label">Файл</label>
                             {{ form.photo }}
+                            <small class="text-muted d-block mt-1">Допустимые форматы: JPG, PNG, GIF, PDF</small>
                         </div>
 
                         <div class="mb-3">

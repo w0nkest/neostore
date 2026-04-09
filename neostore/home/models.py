@@ -26,7 +26,7 @@ class Certificate(models.Model):
     name = models.CharField(verbose_name='Name', max_length=100)
     givenfor = models.CharField(verbose_name='Given for', max_length=100)
     date = models.DateTimeField(verbose_name='Date of birth', null=True, auto_now_add=True)
-    photo = models.ImageField(verbose_name='Photolink', upload_to='certificates/', null=True, blank=True)
+    photo = models.FileField(verbose_name='File', upload_to='certificates/', null=True, blank=True)
 
 
 class Order(models.Model):
