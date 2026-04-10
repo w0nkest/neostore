@@ -4,40 +4,54 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="created repo">
+    <list default="true" id="d7cf4ce0-1070-42b0-bdd9-3a1ec14a1a53" name="Changes" comment="fixed unworking view button on certificate page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/neostore/home/templates/home/hr_dashboard.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="62" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "w0nkest"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;w0nkest&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "https://github.com/w0nkest/neostore.git",
+    "url": "https://github.com/w0nkest/neostore",
     "accountId": "44fd7edf-7464-4a0a-ac2f-a27ad60326c2"
   }
 }]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="3C4VcX8EmDEj1AHdMqLqI5AK62I" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -45,23 +59,54 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.main.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main"
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "dev",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/w0nkest/PycharmProjects/neostore/neostore/authentication/templates/registration",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "ml.llm.AcpAgentsConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true",
+    "Отладка JavaScript.base.html.executor": "Run",
+    "Отладка JavaScript.home.html.executor": "Run"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/neostore/authentication/templates/registration" />
+      <recent name="$PROJECT_DIR$/neostore/authentication" />
+      <recent name="$PROJECT_DIR$/neostore/auth" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/neostore/certificate/templates/certificate" />
+      <recent name="$PROJECT_DIR$/neostore/things" />
+      <recent name="$PROJECT_DIR$/neostore/things/templates/things" />
+      <recent name="$PROJECT_DIR$/neostore/home/templates/home" />
       <recent name="$PROJECT_DIR$/neostore" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="base.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/neostore/neostore/home/templates/base.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178" />
+        <option value="bundled-python-sdk-b63d5a1f7c97-b61e75351b1f-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.22158.340" />
       </set>
     </attachedChunks>
   </component>
@@ -72,6 +117,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1775644908256</updated>
+      <workItem from="1775672103682" duration="93000" />
+      <workItem from="1775673819815" duration="118000" />
+      <workItem from="1775676532826" duration="502000" />
+      <workItem from="1775677336424" duration="816000" />
+      <workItem from="1775678178339" duration="4057000" />
+      <workItem from="1775682329673" duration="40000" />
+      <workItem from="1775682488116" duration="25000" />
     </task>
     <task id="LOCAL-00001" summary="created repo">
       <option name="closed" value="true" />
@@ -81,11 +133,219 @@
       <option name="project" value="LOCAL" />
       <updated>1775645054872</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="started home page">
+      <option name="closed" value="true" />
+      <created>1775649989715</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1775649989715</updated>
+    </task>
+    <task id="LOCAL-00003" summary="started home page">
+      <option name="closed" value="true" />
+      <created>1775649995564</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1775649995564</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added classes and made migration">
+      <option name="closed" value="true" />
+      <created>1775652875197</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1775652875197</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added migrations file">
+      <option name="closed" value="true" />
+      <created>1775653177630</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1775653177630</updated>
+    </task>
+    <task id="LOCAL-00006" summary="created pages, made order class">
+      <option name="closed" value="true" />
+      <created>1775655029075</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1775655029075</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fixed logout issue and removed unnecessary &quot;is_hr&quot; field, replaced with included &quot;is_superuser&quot;">
+      <option name="closed" value="true" />
+      <created>1775713786644</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1775713786644</updated>
+    </task>
+    <task id="LOCAL-00008" summary="cart filling logic created">
+      <option name="closed" value="true" />
+      <created>1775721085277</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1775721085277</updated>
+    </task>
+    <task id="LOCAL-00009" summary="payment added, orders being created">
+      <option name="closed" value="true" />
+      <created>1775736452520</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1775736452520</updated>
+    </task>
+    <task id="LOCAL-00010" summary="certificates adding working">
+      <option name="closed" value="true" />
+      <created>1775742252127</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1775742252127</updated>
+    </task>
+    <task id="LOCAL-00011" summary="certificates adding working">
+      <option name="closed" value="true" />
+      <created>1775742268036</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1775742268036</updated>
+    </task>
+    <task id="LOCAL-00012" summary="certificates finally adding money&#10;money money money &#10;must be funny&#10;lalalalala">
+      <option name="closed" value="true" />
+      <created>1775746238794</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1775746238794</updated>
+    </task>
+    <task id="LOCAL-00013" summary="created junk cleanup and prepared for release">
+      <option name="closed" value="true" />
+      <created>1775747703071</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1775747703071</updated>
+    </task>
+    <task id="LOCAL-00014" summary="created junk cleanup and prepared for release">
+      <option name="closed" value="true" />
+      <created>1775747707981</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1775747707981</updated>
+    </task>
+    <task id="LOCAL-00015" summary="returned debug mode on: picture were not working">
+      <option name="closed" value="true" />
+      <created>1775750317973</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1775750317973</updated>
+    </task>
+    <task id="LOCAL-00016" summary="returned debug mode on: picture were not working">
+      <option name="closed" value="true" />
+      <created>1775750321382</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1775750321382</updated>
+    </task>
+    <task id="LOCAL-00017" summary="cleared table">
+      <option name="closed" value="true" />
+      <created>1775750731303</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1775750731303</updated>
+    </task>
+    <task id="LOCAL-00018" summary="formatted code">
+      <option name="closed" value="true" />
+      <created>1775751878193</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1775751878193</updated>
+    </task>
+    <task id="LOCAL-00019" summary="deleted cleanup file">
+      <option name="closed" value="true" />
+      <created>1775752222995</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1775752222995</updated>
+    </task>
+    <task id="LOCAL-00020" summary="filtering things by amount, displaying objects with amount gt 0">
+      <option name="closed" value="true" />
+      <created>1775753188763</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1775753188763</updated>
+    </task>
+    <task id="LOCAL-00021" summary="added photo certificate photo">
+      <option name="closed" value="true" />
+      <created>1775758331071</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1775758331071</updated>
+    </task>
+    <task id="LOCAL-00022" summary="deleted unnecessary link">
+      <option name="closed" value="true" />
+      <created>1775758781196</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1775758781196</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fixed unworking view button on certificate page">
+      <option name="closed" value="true" />
+      <created>1775759535137</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1775759535137</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fixed unworking view button on certificate page">
+      <option name="closed" value="true" />
+      <created>1775759539712</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1775759539712</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created repo" />
-    <option name="LAST_COMMIT_MESSAGE" value="created repo" />
+    <MESSAGE value="started home page" />
+    <MESSAGE value="added classes and made migration" />
+    <MESSAGE value="added migrations file" />
+    <MESSAGE value="created pages, made order class" />
+    <MESSAGE value="fixed logout issue and removed unnecessary &quot;is_hr&quot; field, replaced with included &quot;is_superuser&quot;" />
+    <MESSAGE value="cart filling logic created" />
+    <MESSAGE value="payment added, orders being created" />
+    <MESSAGE value="certificates adding working" />
+    <MESSAGE value="certificates finally adding money&#10;money money money &#10;must be funny&#10;lalalalala" />
+    <MESSAGE value="created junk cleanup and prepared for release" />
+    <MESSAGE value="returned debug mode on: picture were not working" />
+    <MESSAGE value="cleared table" />
+    <MESSAGE value="formatted code" />
+    <MESSAGE value="deleted cleanup file" />
+    <MESSAGE value="filtering things by amount, displaying objects with amount gt 0" />
+    <MESSAGE value="added photo certificate photo" />
+    <MESSAGE value="deleted unnecessary link" />
+    <MESSAGE value="fixed unworking view button on certificate page" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed unworking view button on certificate page" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/neostore$asgi.coverage" NAME="Результаты покрытия asgi" MODIFIED="1775652751189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neostore/neostore" />
   </component>
 </project>

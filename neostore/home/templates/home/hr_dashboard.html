@@ -1,0 +1,298 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>HR Панель</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3>Ожидающие сертификаты</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Пользователь</th>
+                        <th>Сертификат</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody id="certificates-table">
+                    {% for cert in pending_certs %}
+                        <tr id="cert-{{ cert.id }}">
+                            <td>{{ cert.user.username }}</td>
+                            <td>{{ cert.name }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-secondary view-cert"
+                                        data-id="{{ cert.id }}"
+                                        data-name="{{ cert.name }}"
+                                        data-user="{{ cert.user.username }}"
+                                        data-givenfor="{{ cert.givenfor }}"
+                                        data-date="{{ cert.date|date:'Y-m-d H:i:s' }}"
+                                        data-state="Ожидает"
+                                        data-photo="{% if cert.photo %}{{ cert.photo.url }}{% endif %}">
+                                    Просмотр
+                                </button>
+                                <button class="btn btn-sm btn-success approve-cert" data-id="{{ cert.id }}">Одобрить</button>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr id="no-certs"><td colspan="3">Нет ожидающих сертификатов.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h3 class="mt-5">Одобренные сертификаты</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Пользователь</th>
+                        <th>Сертификат</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cert in approved_certs %}
+                        <tr>
+                            <td>{{ cert.user.username }}</td>
+                            <td>{{ cert.name }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-secondary view-cert"
+                                        data-id="{{ cert.id }}"
+                                        data-name="{{ cert.name }}"
+                                        data-user="{{ cert.user.username }}"
+                                        data-givenfor="{{ cert.givenfor }}"
+                                        data-date="{{ cert.date|date:'Y-m-d H:i:s' }}"
+                                        data-state="Одобрено"
+                                        data-photo="{% if cert.photo %}{{ cert.photo.url }}{% endif %}">
+                                    Просмотр
+                                </button>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="3">Нет одобренных сертификатов.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Ожидающие заказы</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Пользователь</th>
+                        <th>Дата</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table">
+                    {% for order in orders %}
+                        <tr id="order-{{ order.id }}">
+                            <td>{{ order.user.username }}</td>
+                            <td>{{ order.date|date:"d.m.Y H:i" }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-success mark-delivered" data-id="{{ order.id }}">Отметить доставленным</button>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr id="no-orders"><td colspan="3">Нет ожидающих заказов.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="priceModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Награда за сертификат</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Введите сумму награды за этот сертификат:</p>
+                    <input type="number" id="cert-price" class="form-control" placeholder="Сумма в NeoCoins" min="0">
+                    <input type="hidden" id="current-cert-id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-success" id="confirm-approve">Одобрить и наградить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="viewCertModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Сведения о сертификате</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <strong>Название сертификата:</strong>
+                                <p id="view-cert-name" class="mt-1"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Пользователь:</strong>
+                                <p id="view-cert-user" class="mt-1"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Выдан за:</strong>
+                                <p id="view-cert-givenfor" class="mt-1"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Отправлен:</strong>
+                                <p id="view-cert-date" class="mt-1"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Статус:</strong>
+                                <p id="view-cert-status" class="mt-1"><span class="badge bg-warning">Ожидает</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <strong>Фото:</strong>
+                                <div id="view-cert-photo" class="mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCertId = null;
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        document.querySelectorAll('.mark-delivered').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.dataset.id;
+                const row = document.getElementById(`order-${orderId}`);
+
+                fetch(`/mark-order/${orderId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        row.remove();
+                        const ordersTable = document.getElementById('orders-table');
+                        if (ordersTable.children.length === 0) {
+                            ordersTable.innerHTML = '<tr id="no-orders"><td colspan="3">Нет ожидающих заказов.</td>';
+                        }
+                    } else {
+                        alert('Error: ' + (data.error || 'Something went wrong'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Не удалось отметить заказ как доставленный');
+                });
+            });
+        });
+
+        document.querySelectorAll('.view-cert').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const certName = this.dataset.name;
+                const certUser = this.dataset.user;
+                const certGivenFor = this.dataset.givenfor;
+                const certDate = this.dataset.date;
+                const certPhoto = this.dataset.photo;
+                const certState = this.dataset.state || 'Ожидает';
+
+                document.getElementById('view-cert-name').textContent = certName;
+                document.getElementById('view-cert-user').textContent = certUser;
+                document.getElementById('view-cert-givenfor').textContent = certGivenFor;
+                document.getElementById('view-cert-date').textContent = certDate;
+                document.getElementById('view-cert-status').textContent = certState;
+
+                const photoContainer = document.getElementById('view-cert-photo');
+                if (certPhoto && certPhoto !== '') {
+                    if (certPhoto.endsWith('.pdf')) {
+                        photoContainer.innerHTML = '<a href="' + certPhoto + '" target="_blank" class="btn btn-primary">Открыть PDF</a>';
+                    } else {
+                        photoContainer.innerHTML = '<a href="' + certPhoto + '" target="_blank"><img src="' + certPhoto + '" alt="Certificate Photo" class="img-fluid rounded" style="max-height: 300px; width: auto; cursor: pointer;"></a><small class="d-block text-muted mt-1">Нажмите для увеличения</small>';
+                    }
+                } else {
+                    photoContainer.innerHTML = '<p class="text-muted">Файл не загружен</p>';
+                }
+
+                const modal = new bootstrap.Modal(document.getElementById('viewCertModal'));
+                modal.show();
+            });
+        });
+
+        document.querySelectorAll('.approve-cert').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentCertId = this.dataset.id;
+                document.getElementById('current-cert-id').value = currentCertId;
+                document.getElementById('cert-price').value = '';
+
+                const modal = new bootstrap.Modal(document.getElementById('priceModal'));
+                modal.show();
+            });
+        });
+
+        document.getElementById('confirm-approve').addEventListener('click', function() {
+            const certId = document.getElementById('current-cert-id').value;
+            const price = document.getElementById('cert-price').value;
+            const row = document.getElementById(`cert-${certId}`);
+
+            if (!price || parseInt(price) <= 0) {
+                alert('Пожалуйста, введите корректную сумму награды');
+                return;
+            }
+
+            fetch(`/approve-cert/${certId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ reward: parseInt(price) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    row.remove();
+                    const certsTable = document.getElementById('certificates-table');
+                    if (certsTable.children.length === 0) {
+                        certsTable.innerHTML = '<tr id="no-certs"><td colspan="3">Нет ожидающих сертификатов.<tr>';
+                    }
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('priceModal'));
+                    modal.hide();
+                } else {
+                    alert('Error: ' + (data.error || 'Something went wrong'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Не удалось одобрить сертификат');
+            });
+        });
+    </script>
+{% endblock %}

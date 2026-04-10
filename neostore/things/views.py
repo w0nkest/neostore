@@ -1,0 +1,177 @@
+import json
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from .forms import ThingsForm
+from home.models import Thing, Cart, CartItem, Order, OrderItem
+
+
+def display(request):
+    things = Thing.objects.filter(amount__gt=0)
+    return render(request, 'things/store.html', {'things': things})
+
+
+def add(request):
+    if not request.user.is_superuser:
+        return HttpResponse("Forbidden", status=403)
+
+    error = ''
+    if request.method == 'POST':
+        form = ThingsForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('store')
+        else:
+            error = 'Wrong data!'
+
+    form = ThingsForm()
+    data = {'form': form, 'error': error}
+    return render(request, 'things/adder.html', data)
+
+
+@login_required
+def add_to_cart_ajax(request, thing_id):
+    if request.method == 'POST':
+        thing = get_object_or_404(Thing, id=thing_id)
+
+        if thing.amount <= 0:
+            return JsonResponse({
+                'success': False,
+                'error': 'Out of stock!'
+            }, status=400)
+
+        cart, _ = Cart.objects.get_or_create(user=request.user)
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, thing=thing)
+
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+
+        thing.amount -= 1
+        thing.save()
+
+        total_items = sum(item.quantity for item in cart.items.all())
+
+        return JsonResponse({
+            'success': True,
+            'cart_count': total_items,
+            'new_stock': thing.amount
+        })
+
+    return JsonResponse({'success': False}, status=400)
+
+
+@login_required
+def cart_count(request):
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    total_items = sum(item.quantity for item in cart.items.all())
+    return JsonResponse({'cart_count': total_items})
+
+
+@login_required
+def get_cart_item(request, thing_id):
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    cart_item = CartItem.objects.filter(cart=cart, thing_id=thing_id).first()
+    thing = get_object_or_404(Thing, id=thing_id)
+    quantity = cart_item.quantity if cart_item else 0
+    return JsonResponse({
+        'quantity': quantity,
+        'stock': thing.amount
+    })
+
+
+@login_required
+def update_cart_quantity(request, thing_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_quantity = data.get('quantity', 0)
+        thing = get_object_or_404(Thing, id=thing_id)
+        cart, _ = Cart.objects.get_or_create(user=request.user)
+
+        old_item = CartItem.objects.filter(cart=cart, thing=thing).first()
+        old_quantity = old_item.quantity if old_item else 0
+
+        if new_quantity > old_quantity:
+            diff_to_add = new_quantity - old_quantity
+            if diff_to_add > thing.amount:
+                return JsonResponse({
+                    'success': False,
+                    'error': f'Only {thing.amount} left',
+                    'max_reached': True,
+                    'stock': thing.amount
+                }, status=400)
+
+        diff = old_quantity - new_quantity
+
+        if new_quantity <= 0:
+            CartItem.objects.filter(cart=cart, thing=thing).delete()
+        else:
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, thing=thing)
+            cart_item.quantity = new_quantity
+            cart_item.save()
+
+        thing.amount += diff
+        thing.save()
+
+        total_items = sum(item.quantity for item in cart.items.all())
+        cart_total = sum(item.thing.value * item.quantity for item in cart.items.all())
+
+        return JsonResponse({
+            'success': True,
+            'quantity': new_quantity,
+            'cart_count': total_items,
+            'cart_total': cart_total,
+            'stock': thing.amount
+        })
+
+    return JsonResponse({'success': False}, status=400)
+
+
+@login_required
+def cart_display(request):
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    items = CartItem.objects.filter(cart=cart)
+    totalprice = sum(it.subtotal for it in items)
+
+    money = request.user.wallet.money
+
+    return render(request, 'things/cart.html',
+                  {'items': items, 'totalprice': totalprice, 'money': money})
+
+
+@login_required
+def checkout(request):
+    if request.method == 'POST':
+        cart = Cart.objects.get(user=request.user)
+        items = CartItem.objects.filter(cart=cart)
+
+        total = sum(item.thing.value * item.quantity for item in items)
+
+        if request.user.wallet.money >= total:
+
+            request.user.wallet.money -= total
+            request.user.wallet.save()
+
+            order = Order.objects.create(user=request.user)
+
+            for cart_item in items:
+                OrderItem.objects.create(
+                    order=order,
+                    thing=cart_item.thing,
+                    quantity=cart_item.quantity,
+                    price=cart_item.thing.value
+                )
+
+            items.delete()
+
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'Insufficient funds'})
+
+    return JsonResponse({'success': False, 'error': 'Invalid method'})
+
+
+@login_required
+def orders(request):
+    orders = Order.objects.filter(user=request.user).order_by('-date')
+    return render(request, 'things/orders.html', {'orders': orders})

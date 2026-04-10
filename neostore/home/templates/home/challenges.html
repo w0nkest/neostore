@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Задачи</h1>
+        <div class="d-flex gap-3 align-items-center">
+            {% if nowallet %} <a href="{% url 'wallet-creation' %}" class="btn btn-success">Создать кошельки</a> {% endif %}
+            <input type="number" id="reward-amount" class="form-control" placeholder="Сумма" style="width: 150px;" min="1" value="100">
+            <button class="btn btn-success" id="reward-btn" disabled>Наградить выбранных</button>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <h3>Сотрудники</h3>
+        <form id="reward-form" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="selected_users" id="selected-users">
+            <input type="hidden" name="amount" id="form-amount">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 10%">
+                            <input type="checkbox" id="select-all" class="form-check-input">
+                        </th>
+                        <th style="width: 45%">Пользователь</th>
+                        <th style="width: 45%">NeoCoins</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="form-check-input user-checkbox" value="{{ user.id }}" data-username="{{ user.username }}">
+                            </td>
+                            <td>{{ user.username }}</span></td>
+                            <td>{{ user.wallet.money }} NeoCoins</span></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">Сотрудники не найдены.{% endfor %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script>
+    const checkboxes = document.querySelectorAll('.user-checkbox');
+    const selectAll = document.getElementById('select-all');
+    const rewardBtn = document.getElementById('reward-btn');
+    const rewardAmount = document.getElementById('reward-amount');
+    const form = document.getElementById('reward-form');
+    const selectedUsersInput = document.getElementById('selected-users');
+    const formAmount = document.getElementById('form-amount');
+
+    function updateRewardButton() {
+        const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+        const amountValid = rewardAmount.value && parseInt(rewardAmount.value) > 0;
+        rewardBtn.disabled = !(anyChecked && amountValid);
+    }
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateRewardButton);
+    });
+
+    rewardAmount.addEventListener('input', updateRewardButton);
+
+    selectAll.addEventListener('change', function() {
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAll.checked;
+        });
+        updateRewardButton();
+    });
+
+    rewardBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const selectedUsers = Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        if (selectedUsers.length === 0) {
+            alert('Пожалуйста, выберите хотя бы одного пользователя');
+            return;
+        }
+
+        const amount = parseInt(rewardAmount.value);
+        if (!amount || amount <= 0) {
+            alert('Пожалуйста, введите корректную сумму');
+            return;
+        }
+
+        selectedUsersInput.value = JSON.stringify(selectedUsers);
+        formAmount.value = amount;
+        form.submit();
+    });
+</script>
+
+<style>
+    .form-check-input {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+    }
+    th, td {
+        vertical-align: middle;
+    }
+    #reward-btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.65;
+    }
+</style>
+{% endblock %}

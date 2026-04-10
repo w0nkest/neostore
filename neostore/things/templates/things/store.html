@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Магазин</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4" style="gap: 20px">
+        <div>{% if user.is_superuser %} <a href="{% url 'add-things' %}" class="btn btn-outline-dark position-relative">Управление товарами</a> {% endif %}</div>
+        <div><a href="{% url 'cart' %}" class="btn btn-outline-dark position-relative">
+            Корзина
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count" style="display: none;">
+                0
+            </span>
+        </a></div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    {% for thing in things %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="{{ thing.photo.url }}" class="card-img-top" alt="{{ thing.name }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ thing.name }}</h5>
+                    <p class="card-text text-primary fw-bold">{{ thing.value }} NeoCoins</p>
+                    <p class="text-muted small">На складе: <span class="stock-count" data-id="{{ thing.id }}">{{ thing.amount }}</span></p>
+
+                    <div class="quantity-control" data-id="{{ thing.id }}" style="display: none;">
+                        <div class="btn-group w-100" role="group">
+                            <button class="btn btn-success dec-btn" type="button" style="flex: 0.3;">−</button>
+                            <input type="text" class="form-control text-center quantity-input" value="0" readonly style="flex: 0.4; background: white; border-color: #198754;">
+                            <button class="btn btn-success inc-btn" type="button" style="flex: 0.3;">+</button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-success w-100 buy-now-btn" data-id="{{ thing.id }}">Купить</button>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12"><p class="text-center">Нет товаров в наличии.</p></div>
+    {% endfor %}
+</div>
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function updateCartCount(count) {
+    const cartCountSpan = document.getElementById('cart-count');
+    if (cartCountSpan) {
+        cartCountSpan.textContent = count;
+        cartCountSpan.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+}
+
+async function loadCartQuantity(thingId) {
+    const response = await fetch(`/shop/get-cart-item/${thingId}/`);
+    const data = await response.json();
+    return data.quantity;
+}
+
+async function updateCartQuantity(thingId, quantity) {
+    const response = await fetch(`/shop/update-cart-quantity/${thingId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quantity: quantity })
+    });
+    return await response.json();
+}
+
+async function updateStock(thingId, delta) {
+    const stockSpan = document.querySelector(`.stock-count[data-id="${thingId}"]`);
+    if (stockSpan) {
+        let currentStock = parseInt(stockSpan.textContent);
+        currentStock -= delta;
+        stockSpan.textContent = currentStock;
+
+        const control = document.querySelector(`.quantity-control[data-id="${thingId}"]`);
+        const incBtn = control?.querySelector('.inc-btn');
+        const decBtn = control?.querySelector('.dec-btn');
+        const input = control?.querySelector('.quantity-input');
+        const currentQty = input ? parseInt(input.value) : 0;
+
+        if (currentStock <= 0) {
+            if (incBtn) {
+                incBtn.disabled = true;
+                incBtn.classList.remove('btn-success');
+                incBtn.classList.add('btn-secondary');
+            }
+            if (decBtn && currentQty <= 0) {
+                decBtn.disabled = true;
+                decBtn.classList.remove('btn-success');
+                decBtn.classList.add('btn-secondary');
+            }
+        } else {
+            if (incBtn) {
+                incBtn.disabled = false;
+                incBtn.classList.remove('btn-secondary');
+                incBtn.classList.add('btn-success');
+            }
+        }
+    }
+}
+
+async function initProduct(thingId) {
+    const response = await fetch(`/shop/get-cart-item/${thingId}/`);
+    const data = await response.json();
+    const quantity = data.quantity;
+    const stock = data.stock;
+
+    const stockSpan = document.querySelector(`.stock-count[data-id="${thingId}"]`);
+    if (stockSpan) {
+        stockSpan.textContent = stock;
+    }
+
+    const control = document.querySelector(`.quantity-control[data-id="${thingId}"]`);
+    const buyBtn = document.querySelector(`.buy-now-btn[data-id="${thingId}"]`);
+
+    if (quantity > 0 || stock === 0) {
+        control.style.display = 'block';
+        buyBtn.style.display = 'none';
+
+        const input = control.querySelector('.quantity-input');
+        const incBtn = control.querySelector('.inc-btn');
+        const decBtn = control.querySelector('.dec-btn');
+        input.value = quantity;
+
+        if (stock <= 0) {
+            if (incBtn) {
+                incBtn.disabled = true;
+                incBtn.classList.remove('btn-success');
+                incBtn.classList.add('btn-secondary');
+            }
+            if (decBtn && quantity <= 0) {
+                decBtn.disabled = true;
+                decBtn.classList.remove('btn-success');
+                decBtn.classList.add('btn-secondary');
+            }
+        } else {
+            if (incBtn) {
+                incBtn.disabled = false;
+                incBtn.classList.remove('btn-secondary');
+                incBtn.classList.add('btn-success');
+            }
+        }
+
+        if (decBtn && quantity > 0) {
+            decBtn.disabled = false;
+            decBtn.classList.remove('btn-secondary');
+            decBtn.classList.add('btn-success');
+        }
+    } else {
+        control.style.display = 'none';
+        buyBtn.style.display = 'block';
+
+        if (stock <= 0) {
+            buyBtn.textContent = 'Нет в наличии';
+            buyBtn.disabled = true;
+            buyBtn.classList.remove('btn-success');
+            buyBtn.classList.add('btn-secondary');
+        }
+    }
+}
+
+document.querySelectorAll('.buy-now-btn').forEach(btn => {
+    const thingId = parseInt(btn.dataset.id);
+
+    btn.addEventListener('click', async () => {
+        const stockSpan = document.querySelector(`.stock-count[data-id="${thingId}"]`);
+        let stock = parseInt(stockSpan.textContent);
+
+        if (stock <= 0) {
+            btn.textContent = 'Нет в наличии';
+            btn.disabled = true;
+            btn.classList.remove('btn-success');
+            btn.classList.add('btn-secondary');
+            return;
+        }
+
+        const result = await updateCartQuantity(thingId, 1);
+
+        if (result.success) {
+            updateCartCount(result.cart_count);
+            await updateStock(thingId, 1);
+
+            const control = document.querySelector(`.quantity-control[data-id="${thingId}"]`);
+            const buyBtn = document.querySelector(`.buy-now-btn[data-id="${thingId}"]`);
+            const input = control.querySelector('.quantity-input');
+            const incBtn = control.querySelector('.inc-btn');
+            const decBtn = control.querySelector('.dec-btn');
+
+            control.style.display = 'block';
+            buyBtn.style.display = 'none';
+            input.value = 1;
+
+            incBtn.disabled = false;
+            incBtn.classList.remove('btn-secondary');
+            incBtn.classList.add('btn-success');
+            decBtn.disabled = false;
+            decBtn.classList.remove('btn-secondary');
+            decBtn.classList.add('btn-success');
+        }
+    });
+});
+
+document.querySelectorAll('.inc-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        if (btn.disabled) return;
+
+        const control = btn.closest('.quantity-control');
+        const thingId = parseInt(control.dataset.id);
+        const input = control.querySelector('.quantity-input');
+        let currentQty = parseInt(input.value);
+        const stockSpan = document.querySelector(`.stock-count[data-id="${thingId}"]`);
+        let stock = parseInt(stockSpan.textContent);
+
+        if (stock <= 0) {
+            return;
+        }
+
+        const newQty = currentQty + 1;
+        const result = await updateCartQuantity(thingId, newQty);
+
+        if (result.success) {
+            input.value = newQty;
+            updateCartCount(result.cart_count);
+            await updateStock(thingId, 1);
+        }
+    });
+});
+
+document.querySelectorAll('.dec-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const control = btn.closest('.quantity-control');
+        const thingId = parseInt(control.dataset.id);
+        const input = control.querySelector('.quantity-input');
+        let currentQty = parseInt(input.value);
+
+        if (currentQty <= 1) {
+            const result = await updateCartQuantity(thingId, 0);
+
+            if (result.success) {
+                updateCartCount(result.cart_count);
+
+                const control = document.querySelector(`.quantity-control[data-id="${thingId}"]`);
+                const buyBtn = document.querySelector(`.buy-now-btn[data-id="${thingId}"]`);
+                const stockSpan = document.querySelector(`.stock-count[data-id="${thingId}"]`);
+                const stock = parseInt(stockSpan.textContent);
+
+                control.style.display = 'none';
+                buyBtn.style.display = 'block';
+
+                if (stock <= 0) {
+                    buyBtn.textContent = 'Нет в наличии';
+                    buyBtn.disabled = true;
+                } else {
+                    buyBtn.textContent = 'Купить';
+                    buyBtn.disabled = false;
+                }
+
+                await updateStock(thingId, -1);
+            }
+        } else {
+            const newQty = currentQty - 1;
+            const result = await updateCartQuantity(thingId, newQty);
+
+            if (result.success) {
+                input.value = newQty;
+                updateCartCount(result.cart_count);
+                await updateStock(thingId, -1);
+            }
+        }
+    });
+});
+
+async function initPage() {
+    const response = await fetch('{% url "cart_count" %}');
+    const data = await response.json();
+    updateCartCount(data.cart_count);
+
+    const btns = document.querySelectorAll('.buy-now-btn');
+    for (let btn of btns) {
+        await initProduct(parseInt(btn.dataset.id));
+    }
+}
+
+initPage();
+</script>
+
+<style>
+.quantity-control {
+    margin-top: 10px;
+}
+.quantity-control .btn-group {
+    gap: 2px;
+    display: flex;
+    justify-content: center;
+}
+.quantity-control .btn-group button {
+    width: 38px;
+    flex: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 6px 0;
+}
+.quantity-control .btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+.quantity-control .btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
+}
+.quantity-control .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    opacity: 0.65;
+}
+.quantity-control .quantity-input {
+    width: 50px;
+    flex: none;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 6px 0;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #198754;
+    border-radius: 0;
+}
+.quantity-control .quantity-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+</style>
+{% endblock %}

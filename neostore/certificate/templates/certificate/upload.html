@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">Загрузить сертификат</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Файл</label>
+                            {{ form.photo }}
+                            <small class="text-muted d-block mt-1">Допустимые форматы: JPG, PNG, GIF, PDF</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Название</label>
+                            {{ form.name }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Выдана за</label>
+                            {{ form.givenfor }}
+                        </div>
+
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endif %}
+
+                        <button type="submit" class="btn btn-success">Отправить</button>
+                        <a href="{% url 'user-profile' %}" class="btn btn-secondary">Отмена</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    input, select {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+    }
+
+    input:focus {
+        border-color: #86b7fe;
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
+    }
+</style>
+{% endblock %}
