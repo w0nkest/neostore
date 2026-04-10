@@ -89,7 +89,7 @@
                             <td>{{ order.user.username }}</td>
                             <td>{{ order.date|date:"d.m.Y H:i" }}</td>
                             <td>
-                                <button class="btn btn-sm btn-outline-secondary mark-delivered" data-id="{{ order.id }}">Отметить доставленным</button>
+                                <button class="btn btn-sm btn-success mark-delivered" data-id="{{ order.id }}">Отметить доставленным</button>
                             </td>
                         </tr>
                     {% empty %}
